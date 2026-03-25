@@ -1,5 +1,6 @@
 // ===== CONFIG =====
 const API = 'http://localhost:3001/api';
+const TRAFFIC_API = 'http://localhost:3000';
 
 // ===== STATE =====
 let allHospitals = [];
@@ -24,6 +25,7 @@ function navigate(page) {
         'nearest-hospital': { title: 'Find Nearest Hospital',  sub: 'Haversine distance + Merge Sort ranking' },
         'locations':        { title: 'All Locations',          sub: 'Tracked geographic points for dispatch' },
         'add-location':     { title: 'Add Location',           sub: 'Register a new location or remote area' },
+        'traffic':          { title: 'Traffic & Road Conditions', sub: 'Live route analysis powered by Karan\'s Traffic Module' },
     };
     const m = meta[page] || { title: page, sub: '' };
     document.getElementById('pageTitle').textContent = m.title;
@@ -428,6 +430,68 @@ async function deleteLocation(id) {
     const res = await apiFetch(`/locations/${id}`, { method: 'DELETE' });
     if (res.success) { showToast('Location deleted', 'success'); loadLocations(); }
     else showToast(res.message || 'Delete failed', 'error');
+}
+
+// ===== TRAFFIC MODULE INTEGRATION =====
+async function fetchTrafficRoute() {
+    const origin = document.getElementById('trafficOrigin').value.trim();
+    const destination = document.getElementById('trafficDestination').value.trim();
+    if (!origin || !destination) { showToast('Enter both origin and destination', 'info'); return; }
+
+    const area = document.getElementById('trafficResult');
+    area.innerHTML = `<div class="spinner" style="margin-top:20px"></div>`;
+
+    try {
+        const res = await fetch(`${TRAFFIC_API}/traffic?origin=${encodeURIComponent(origin)}&destination=${encodeURIComponent(destination)}`);
+        const data = await res.json();
+
+        if (data.error) {
+            area.innerHTML = `<div class="empty-state"><i class="fas fa-exclamation-circle"></i><p>${data.error}</p></div>`;
+            return;
+        }
+
+        const condColors = { Good: 'badge-success', Moderate: 'badge-warning', Poor: 'badge-danger', Blocked: 'badge-danger' };
+        const cond = data.roadCondition || 'Unknown';
+        const condClass = condColors[cond] || 'badge-info';
+
+        area.innerHTML = `
+            <div class="result-card" style="margin-top:12px">
+                <div class="result-title" style="grid-column:1/-1">
+                    <i class="fas fa-route"></i> Route Analysis
+                </div>
+                <div class="result-field">
+                    <label>From</label>
+                    <p>${data.request?.origin || origin}</p>
+                </div>
+                <div class="result-field">
+                    <label>To</label>
+                    <p>${data.request?.destination || destination}</p>
+                </div>
+                <div class="result-field">
+                    <label>Distance</label>
+                    <p>${data.route?.distance || '—'}</p>
+                </div>
+                <div class="result-field">
+                    <label>Estimated Time</label>
+                    <p>${data.route?.duration || '—'}</p>
+                </div>
+                <div class="result-field">
+                    <label>Road Condition</label>
+                    <p><span class="badge ${condClass}">${cond}</span></p>
+                </div>
+                <div class="result-field">
+                    <label>Recommended Hospital</label>
+                    <p><i class="fas fa-hospital" style="color:var(--primary);margin-right:5px"></i>${data.hospital || '—'}</p>
+                </div>
+                <div style="grid-column:1/-1;margin-top:8px">
+                    <button class="btn btn-secondary btn-sm" onclick="window.open('https://www.google.com/maps/dir/?api=1&origin=${encodeURIComponent(origin)}&destination=${encodeURIComponent(destination)}','_blank')">
+                        <i class="fas fa-map-marker-alt"></i> Open in Google Maps
+                    </button>
+                </div>
+            </div>`;
+    } catch (err) {
+        area.innerHTML = `<div class="empty-state"><i class="fas fa-plug"></i><p>Traffic service offline</p><small>Make sure the Traffic Module server is running on port 3000</small></div>`;
+    }
 }
 
 // ===== INIT =====
