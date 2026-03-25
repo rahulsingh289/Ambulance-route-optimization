@@ -169,6 +169,27 @@ mergeSortByDistance(hospitalsWithDistance)
 
 ---
 
+## Traffic Module Integration
+
+The dashboard includes a built-in **Traffic & Roads** page that connects to Karan Singh's Traffic Module running on port 3000.
+
+It displays:
+- Route distance and estimated travel time
+- Road condition (Good / Moderate / Poor / Blocked) with colour-coded badge
+- Recommended hospital for the given route
+- Google Maps link for the route
+
+Both servers must be running for full functionality:
+```bash
+# Terminal 1 — Hospital Module (port 3001)
+cd hospital-location-module && npm start
+
+# Terminal 2 — Traffic Module (port 3000)
+cd "Traffic Module" && npm start
+```
+
+---
+
 ## Sample Data
 
 The schema seeds the following on first run:
