@@ -5,10 +5,21 @@ const url = require('url');
 
 const PORT = 4000;
 const CSV_FILE = path.join(__dirname, 'users.csv');
+const FRONTEND = path.join(__dirname, '..', 'frontend');
 
 // Create CSV with header if it doesn't exist
 if (!fs.existsSync(CSV_FILE)) {
     fs.writeFileSync(CSV_FILE, 'name,email,password,login_type,timestamp\n');
+}
+
+function serveStatic(res, filePath) {
+    const ext = path.extname(filePath);
+    const types = { '.html': 'text/html', '.css': 'text/css', '.js': 'application/javascript' };
+    fs.readFile(filePath, (err, data) => {
+        if (err) { res.writeHead(404); res.end('Not found'); return; }
+        res.writeHead(200, { 'Content-Type': types[ext] || 'text/plain' });
+        res.end(data);
+    });
 }
 
 function send(res, status, data) {
@@ -41,6 +52,13 @@ const server = http.createServer(async (req, res) => {
 
     if (method === 'OPTIONS') { send(res, 204, {}); return; }
 
+    // Serve frontend
+    if (pathname === '/' && method === 'GET') {
+        serveStatic(res, path.join(FRONTEND, 'login.html')); return;
+    }
+    if (pathname === '/style.css') { serveStatic(res, path.join(FRONTEND, 'style.css')); return; }
+    if (pathname === '/script.js') { serveStatic(res, path.join(FRONTEND, 'script.js')); return; }
+
     // POST /register — save new user to CSV
     if (pathname === '/register' && method === 'POST') {
         const { name, email, password } = await parseBody(req);
@@ -64,8 +82,9 @@ const server = http.createServer(async (req, res) => {
         }
         const lines = fs.readFileSync(CSV_FILE, 'utf8').trim().split('\n').slice(1);
         const found = lines.find(line => {
-            const [, csvEmail, csvPass] = line.split(',').map(v => v.replace(/"/g, ''));
-            return csvEmail === email && csvPass === password;
+            // Parse quoted CSV properly
+            const cols = line.match(/"([^"]*)"/g)?.map(v => v.replace(/"/g, '')) || [];
+            return cols[1] === email && cols[2] === password;
         });
         if (!found) { send(res, 401, { success: false, message: 'Invalid email or password' }); return; }
         send(res, 200, { success: true, message: 'Login successful' }); return;
