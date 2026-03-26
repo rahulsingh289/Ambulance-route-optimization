@@ -1,241 +1,131 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
+    <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Hospital & Location Management — AmbulanceOS</title>
-    <link rel="stylesheet" href="style.css" />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+    <link rel="stylesheet" href="style.css"/>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
 </head>
 <body>
 
-<!-- Sidebar -->
-<aside class="sidebar" id="sidebar">
+<aside class="sidebar">
     <div class="sidebar-header">
         <div class="logo">
             <div class="logo-icon"><i class="fas fa-ambulance"></i></div>
             <span>AmbulanceOS</span>
         </div>
-        <button class="sidebar-toggle" id="sidebarToggle" title="Toggle sidebar">
-            <i class="fas fa-bars"></i>
-        </button>
     </div>
-
     <nav class="sidebar-nav">
         <div class="nav-section-label">Overview</div>
-        <a href="#" class="nav-item active" data-page="dashboard">
-            <i class="fas fa-th-large"></i><span>Dashboard</span>
-        </a>
+        <a href="#" class="nav-item active" data-page="dashboard"><i class="fas fa-th-large"></i><span>Dashboard</span></a>
 
         <div class="nav-section-label">Hospitals</div>
-        <a href="#" class="nav-item" data-page="hospitals">
-            <i class="fas fa-hospital"></i><span>All Hospitals</span>
-        </a>
-        <a href="#" class="nav-item" data-page="add-hospital">
-            <i class="fas fa-plus-circle"></i><span>Add Hospital</span>
-        </a>
-        <a href="#" class="nav-item" data-page="search-hospital">
-            <i class="fas fa-search"></i><span>Search by Name</span>
-        </a>
-        <a href="#" class="nav-item" data-page="nearest-hospital">
-            <i class="fas fa-map-marker-alt"></i><span>Find Nearest</span>
-        </a>
+        <a href="#" class="nav-item" data-page="hospitals"><i class="fas fa-hospital"></i><span>All Hospitals</span></a>
+        <a href="#" class="nav-item" data-page="add-hospital"><i class="fas fa-plus-circle"></i><span>Add Hospital</span></a>
+        <a href="#" class="nav-item" data-page="search-hospital"><i class="fas fa-search"></i><span>Search by Name</span></a>
+        <a href="#" class="nav-item" data-page="nearest-hospital"><i class="fas fa-map-marker-alt"></i><span>Find Nearest</span></a>
 
-        <div class="nav-section-label">Integrations</div>
-        <a href="#" class="nav-item" data-page="traffic">
-            <i class="fas fa-traffic-light"></i><span>Traffic & Roads</span>
-        </a>
-
-        <div class="nav-section-label">Locations</div>        <a href="#" class="nav-item" data-page="locations">
-            <i class="fas fa-map"></i><span>All Locations</span>
-        </a>
-        <a href="#" class="nav-item" data-page="add-location">
-            <i class="fas fa-map-pin"></i><span>Add Location</span>
-        </a>
+        <div class="nav-section-label">Locations</div>
+        <a href="#" class="nav-item" data-page="locations"><i class="fas fa-map"></i><span>All Locations</span></a>
+        <a href="#" class="nav-item" data-page="add-location"><i class="fas fa-map-pin"></i><span>Add Location</span></a>
     </nav>
-
     <div class="sidebar-footer">
         <div class="team-badge">
             <div class="team-avatar">RS</div>
-            <div>
-                <div class="team-name">Rahul Singh</div>
-                <div class="dev-name">Team Visitors</div>
-            </div>
+            <div><div class="team-name">Rahul Singh</div><div class="dev-name">Team Visitors</div></div>
         </div>
     </div>
 </aside>
 
-<!-- Main Content -->
-<div class="main-wrapper" id="mainWrapper">
-
-    <!-- Topbar -->
+<div class="main-wrapper">
     <header class="topbar">
         <div class="topbar-left">
             <div class="page-title" id="pageTitle">Dashboard</div>
             <div class="page-subtitle" id="pageSubtitle">Hospital & Location Management Module</div>
         </div>
         <div class="topbar-right">
-            <div class="api-status" id="apiStatus">
+            <div class="api-status">
                 <span class="status-dot connecting" id="statusDot"></span>
                 <span id="apiStatusText">Connecting...</span>
             </div>
-            <div class="topbar-avatar" title="Rahul Singh">RS</div>
+            <div class="topbar-avatar">RS</div>
         </div>
     </header>
 
     <main class="content">
 
-        <!-- ===== DASHBOARD PAGE ===== -->
+        <!-- DASHBOARD -->
         <section class="page active" id="page-dashboard">
-            <div class="page-header">
-                <h2>Overview</h2>
-                <p>Real-time summary of hospitals and locations in the system</p>
-            </div>
-
+            <div class="page-header"><h2>Overview</h2><p>Real-time summary of hospitals and locations</p></div>
             <div class="stats-grid">
                 <div class="stat-card" style="--accent:#4f8ef7">
                     <div class="stat-icon"><i class="fas fa-hospital"></i></div>
-                    <div class="stat-info">
-                        <div class="stat-value" id="statHospitals">—</div>
-                        <div class="stat-label">Active Hospitals</div>
-                    </div>
+                    <div class="stat-info"><div class="stat-value" id="statHospitals">—</div><div class="stat-label">Active Hospitals</div></div>
                 </div>
                 <div class="stat-card" style="--accent:#22c55e">
                     <div class="stat-icon"><i class="fas fa-bed"></i></div>
-                    <div class="stat-info">
-                        <div class="stat-value" id="statBeds">—</div>
-                        <div class="stat-label">Available Beds</div>
-                    </div>
+                    <div class="stat-info"><div class="stat-value" id="statBeds">—</div><div class="stat-label">Available Beds</div></div>
                 </div>
                 <div class="stat-card" style="--accent:#f59e0b">
                     <div class="stat-icon"><i class="fas fa-map-marker-alt"></i></div>
-                    <div class="stat-info">
-                        <div class="stat-value" id="statLocations">—</div>
-                        <div class="stat-label">Tracked Locations</div>
-                    </div>
+                    <div class="stat-info"><div class="stat-value" id="statLocations">—</div><div class="stat-label">Tracked Locations</div></div>
                 </div>
                 <div class="stat-card" style="--accent:#f43f5e">
                     <div class="stat-icon"><i class="fas fa-wifi"></i></div>
-                    <div class="stat-info">
-                        <div class="stat-value" id="statRemote">—</div>
-                        <div class="stat-label">Remote Areas</div>
-                    </div>
+                    <div class="stat-info"><div class="stat-value" id="statRemote">—</div><div class="stat-label">Remote Areas</div></div>
                 </div>
             </div>
-
             <div class="dashboard-grid">
                 <div class="card">
-                    <div class="card-header">
-                        <h3><i class="fas fa-hospital-alt"></i> Recent Hospitals</h3>
-                        <button class="btn btn-sm btn-ghost" onclick="navigate('hospitals')">
-                            View all <i class="fas fa-arrow-right" style="font-size:10px"></i>
-                        </button>
-                    </div>
-                    <div class="card-body" id="dashHospitalList">
-                        <div class="skeleton-list"></div>
-                    </div>
+                    <div class="card-header"><h3><i class="fas fa-hospital-alt"></i> Recent Hospitals</h3><button class="btn btn-sm btn-ghost" onclick="navigate('hospitals')">View all</button></div>
+                    <div class="card-body" id="dashHospitalList"><div class="skeleton-list"></div></div>
                 </div>
                 <div class="card">
-                    <div class="card-header">
-                        <h3><i class="fas fa-map"></i> Recent Locations</h3>
-                        <button class="btn btn-sm btn-ghost" onclick="navigate('locations')">
-                            View all <i class="fas fa-arrow-right" style="font-size:10px"></i>
-                        </button>
-                    </div>
-                    <div class="card-body" id="dashLocationList">
-                        <div class="skeleton-list"></div>
-                    </div>
+                    <div class="card-header"><h3><i class="fas fa-map"></i> Recent Locations</h3><button class="btn btn-sm btn-ghost" onclick="navigate('locations')">View all</button></div>
+                    <div class="card-body" id="dashLocationList"><div class="skeleton-list"></div></div>
                 </div>
             </div>
         </section>
 
-        <!-- ===== ALL HOSPITALS PAGE ===== -->
+        <!-- ALL HOSPITALS -->
         <section class="page" id="page-hospitals">
-            <div class="page-header">
-                <h2>All Hospitals</h2>
-                <p>Manage active hospitals, update bed availability, and deactivate records</p>
-            </div>
+            <div class="page-header"><h2>All Hospitals</h2><p>View and filter active hospital records</p></div>
             <div class="page-toolbar">
-                <input type="text" class="search-input" id="hospitalFilter"
-                    placeholder="Filter by name, specialization or address..."
-                    oninput="filterHospitals()"/>
-                <button class="btn btn-primary" onclick="navigate('add-hospital')">
-                    <i class="fas fa-plus"></i> Add Hospital
-                </button>
+                <input type="text" class="search-input" id="hospitalFilter" placeholder="Filter by name or specialization..." oninput="filterHospitals()"/>
+                <button class="btn btn-primary" onclick="navigate('add-hospital')"><i class="fas fa-plus"></i> Add Hospital</button>
             </div>
             <div class="card">
                 <div class="table-wrapper">
-                    <table class="data-table" id="hospitalTable">
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>Hospital</th>
-                                <th>Specialization</th>
-                                <th>Beds Available</th>
-                                <th>Contact</th>
-                                <th>Status</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody id="hospitalTableBody">
-                            <tr><td colspan="7" class="loading-cell"><div class="spinner"></div></td></tr>
-                        </tbody>
+                    <table class="data-table">
+                        <thead><tr><th>ID</th><th>Hospital</th><th>Specialization</th><th>Beds</th><th>Contact</th><th>Status</th></tr></thead>
+                        <tbody id="hospitalTableBody"><tr><td colspan="6" class="loading-cell"><div class="spinner"></div></td></tr></tbody>
                     </table>
                 </div>
             </div>
         </section>
 
-        <!-- ===== ADD HOSPITAL PAGE ===== -->
+        <!-- ADD HOSPITAL -->
         <section class="page" id="page-add-hospital">
-            <div class="page-header">
-                <h2>Add New Hospital</h2>
-                <p>Register a hospital to make it available for ambulance routing and dispatch</p>
-            </div>
+            <div class="page-header"><h2>Add New Hospital</h2><p>Register a hospital for ambulance routing and dispatch</p></div>
             <div class="form-container">
                 <div class="card">
-                    <div class="card-header">
-                        <h3><i class="fas fa-plus-circle"></i> Hospital Details</h3>
-                    </div>
+                    <div class="card-header"><h3><i class="fas fa-plus-circle"></i> Hospital Details</h3></div>
                     <div class="modal-body">
                         <form id="addHospitalForm" onsubmit="submitAddHospital(event)">
                             <div class="form-grid">
-                                <div class="form-group full">
-                                    <label>Hospital Name *</label>
-                                    <input type="text" name="name" placeholder="e.g. City General Hospital" required/>
-                                </div>
-                                <div class="form-group full">
-                                    <label>Full Address *</label>
-                                    <input type="text" name="address" placeholder="e.g. 12 Main Road, District A" required/>
-                                </div>
-                                <div class="form-group">
-                                    <label>Latitude *</label>
-                                    <input type="number" name="latitude" step="any" placeholder="e.g. 30.3165" required/>
-                                </div>
-                                <div class="form-group">
-                                    <label>Longitude *</label>
-                                    <input type="number" name="longitude" step="any" placeholder="e.g. 78.0322" required/>
-                                </div>
-                                <div class="form-group">
-                                    <label>Contact Number</label>
-                                    <input type="text" name="contact" placeholder="e.g. 01234567890"/>
-                                </div>div>
-                                <div class="form-group">
-                                    <label>Specialization</label>
-                                    <input type="text" name="specialization" placeholder="e.g. Emergency, Trauma, General"/>
-                                </div>
-                                <div class="form-group">
-                                    <label>Available Beds</label>
-                                    <input type="number" name="available_beds" placeholder="0" min="0"/>
-                                </div>
+                                <div class="form-group full"><label>Hospital Name *</label><input type="text" name="name" placeholder="e.g. City General Hospital" required/></div>
+                                <div class="form-group full"><label>Full Address *</label><input type="text" name="address" placeholder="e.g. 12 Main Road, District A" required/></div>
+                                <div class="form-group"><label>Latitude *</label><input type="number" name="latitude" step="any" placeholder="e.g. 30.3165" required/></div>
+                                <div class="form-group"><label>Longitude *</label><input type="number" name="longitude" step="any" placeholder="e.g. 78.0322" required/></div>
+                                <div class="form-group"><label>Contact</label><input type="text" name="contact" placeholder="e.g. 01234567890"/></div>
+                                <div class="form-group"><label>Specialization</label><input type="text" name="specialization" placeholder="e.g. Emergency, Trauma"/></div>
+                                <div class="form-group"><label>Available Beds</label><input type="number" name="available_beds" placeholder="0" min="0"/></div>
                             </div>
                             <div class="form-actions">
-                                <button type="button" class="btn btn-ghost" onclick="navigate('hospitals')">
-                                    Cancel
-                                </button>
-                                <button type="submit" class="btn btn-primary">
-                                    <i class="fas fa-save"></i> Save Hospital
-                                </button>
+                                <button type="button" class="btn btn-ghost" onclick="navigate('hospitals')">Cancel</button>
+                                <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Save Hospital</button>
                             </div>
                         </form>
                     </div>
@@ -243,32 +133,20 @@
             </div>
         </section>
 
-        <!-- ===== SEARCH HOSPITAL PAGE ===== -->
+        <!-- SEARCH HOSPITAL -->
         <section class="page" id="page-search-hospital">
-            <div class="page-header">
-                <h2>Search Hospital by Name</h2>
-                <p>Quickly look up a hospital using Binary Search — O(log n) time complexity</p>
-            </div>
+            <div class="page-header"><h2>Search Hospital by Name</h2><p>Binary Search lookup — O(log n) time complexity</p></div>
             <div class="form-container">
                 <div class="card">
                     <div class="card-header">
                         <h3><i class="fas fa-search"></i> Binary Search</h3>
-                        <span class="algo-badge" style="margin-bottom:0">
-                            <i class="fas fa-code-branch"></i> O(log n)
-                        </span>
+                        <span class="algo-badge"><i class="fas fa-code-branch"></i> O(log n)</span>
                     </div>
                     <div class="modal-body">
-                        <div class="info-banner">
-                            <i class="fas fa-info-circle"></i>
-                            Enter the exact hospital name. Search is case-insensitive and uses a sorted binary search on the database.
-                        </div>
+                        <div class="info-banner"><i class="fas fa-info-circle"></i> Enter the exact hospital name. Case-insensitive.</div>
                         <div class="search-bar-big">
-                            <input type="text" id="searchNameInput"
-                                placeholder="Type exact hospital name, e.g. City General Hospital"
-                                onkeydown="if(event.key==='Enter') searchHospital()"/>
-                            <button class="btn btn-primary" onclick="searchHospital()">
-                                <i class="fas fa-search"></i> Search
-                            </button>
+                            <input type="text" id="searchNameInput" placeholder="e.g. City General Hospital" onkeydown="if(event.key==='Enter') searchHospital()"/>
+                            <button class="btn btn-primary" onclick="searchHospital()"><i class="fas fa-search"></i> Search</button>
                         </div>
                         <div id="searchResult" class="search-result-area"></div>
                     </div>
@@ -276,42 +154,24 @@
             </div>
         </section>
 
-        <!-- ===== NEAREST HOSPITAL PAGE ===== -->
+        <!-- NEAREST HOSPITAL -->
         <section class="page" id="page-nearest-hospital">
-            <div class="page-header">
-                <h2>Find Nearest Hospital</h2>
-                <p>Locate the closest available hospital using the Haversine formula, sorted by Merge Sort</p>
-            </div>
+            <div class="page-header"><h2>Find Nearest Hospital</h2><p>Haversine formula distance, ranked by Merge Sort</p></div>
             <div class="form-container">
                 <div class="card">
                     <div class="card-header">
-                        <h3><i class="fas fa-map-marker-alt"></i> Enter Patient Coordinates</h3>
-                        <span class="algo-badge" style="margin-bottom:0">
-                            <i class="fas fa-code-branch"></i> Haversine + Merge Sort
-                        </span>
+                        <h3><i class="fas fa-map-marker-alt"></i> Patient Coordinates</h3>
+                        <span class="algo-badge"><i class="fas fa-code-branch"></i> Haversine + Merge Sort</span>
                     </div>
                     <div class="modal-body">
-                        <div class="info-banner">
-                            <i class="fas fa-info-circle"></i>
-                            Only hospitals with available beds are shown. Results are ranked by real-world distance in kilometres.
-                        </div>
+                        <div class="info-banner"><i class="fas fa-info-circle"></i> Only hospitals with available beds are shown.</div>
                         <div class="form-grid">
-                            <div class="form-group">
-                                <label>Latitude</label>
-                                <input type="number" id="nearLat" step="any" placeholder="e.g. 30.3165"/>
-                            </div>
-                            <div class="form-group">
-                                <label>Longitude</label>
-                                <input type="number" id="nearLng" step="any" placeholder="e.g. 78.0322"/>
-                            </div>
+                            <div class="form-group"><label>Latitude</label><input type="number" id="nearLat" step="any" placeholder="e.g. 30.3165"/></div>
+                            <div class="form-group"><label>Longitude</label><input type="number" id="nearLng" step="any" placeholder="e.g. 78.0322"/></div>
                         </div>
                         <div class="form-actions" style="border:none;padding-top:10px;margin-top:4px;justify-content:flex-start">
-                            <button class="btn btn-secondary" onclick="useMyLocation()">
-                                <i class="fas fa-crosshairs"></i> Use My Location
-                            </button>
-                            <button class="btn btn-primary" onclick="findNearest()">
-                                <i class="fas fa-search-location"></i> Find Nearest
-                            </button>
+                            <button class="btn btn-secondary" onclick="useMyLocation()"><i class="fas fa-crosshairs"></i> Use My Location</button>
+                            <button class="btn btn-primary" onclick="findNearest()"><i class="fas fa-search-location"></i> Find Nearest</button>
                         </div>
                         <div id="nearestResult" class="nearest-result-area"></div>
                     </div>
@@ -319,87 +179,43 @@
             </div>
         </section>
 
-        <!-- ===== ALL LOCATIONS PAGE ===== -->
+        <!-- ALL LOCATIONS -->
         <section class="page" id="page-locations">
-            <div class="page-header">
-                <h2>All Locations</h2>
-                <p>Tracked geographic points used for ambulance dispatch and route planning</p>
-            </div>
+            <div class="page-header"><h2>All Locations</h2><p>Geographic points used for ambulance dispatch</p></div>
             <div class="page-toolbar">
-                <input type="text" class="search-input" id="locationFilter"
-                    placeholder="Filter by name or region..."
-                    oninput="filterLocations()"/>
-                <button class="btn btn-primary" onclick="navigate('add-location')">
-                    <i class="fas fa-plus"></i> Add Location
-                </button>
+                <input type="text" class="search-input" id="locationFilter" placeholder="Filter by name or region..." oninput="filterLocations()"/>
+                <button class="btn btn-primary" onclick="navigate('add-location')"><i class="fas fa-plus"></i> Add Location</button>
             </div>
             <div class="card">
                 <div class="table-wrapper">
                     <table class="data-table">
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>Location Name</th>
-                                <th>Region</th>
-                                <th>Latitude</th>
-                                <th>Longitude</th>
-                                <th>Area Type</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody id="locationTableBody">
-                            <tr><td colspan="7" class="loading-cell"><div class="spinner"></div></td></tr>
-                        </tbody>
+                        <thead><tr><th>ID</th><th>Name</th><th>Region</th><th>Coordinates</th><th>Type</th></tr></thead>
+                        <tbody id="locationTableBody"><tr><td colspan="5" class="loading-cell"><div class="spinner"></div></td></tr></tbody>
                     </table>
                 </div>
             </div>
         </section>
 
-        <!-- ===== ADD LOCATION PAGE ===== -->
+        <!-- ADD LOCATION -->
         <section class="page" id="page-add-location">
-            <div class="page-header">
-                <h2>Add New Location</h2>
-                <p>Register a geographic point — village, town, or remote area — for dispatch tracking</p>
-            </div>
+            <div class="page-header"><h2>Add New Location</h2><p>Register a village, town, or remote area for dispatch tracking</p></div>
             <div class="form-container">
                 <div class="card">
-                    <div class="card-header">
-                        <h3><i class="fas fa-map-pin"></i> Location Details</h3>
-                    </div>
+                    <div class="card-header"><h3><i class="fas fa-map-pin"></i> Location Details</h3></div>
                     <div class="modal-body">
                         <form id="addLocationForm" onsubmit="submitAddLocation(event)">
                             <div class="form-grid">
-                                <div class="form-group full">
-                                    <label>Location Name *</label>
-                                    <input type="text" name="name" placeholder="e.g. Remote Village B" required/>
-                                </div>
-                                <div class="form-group">
-                                    <label>Latitude *</label>
-                                    <input type="number" name="latitude" step="any" placeholder="e.g. 30.1234" required/>
-                                </div>
-                                <div class="form-group">
-                                    <label>Longitude *</label>
-                                    <input type="number" name="longitude" step="any" placeholder="e.g. 77.9876" required/>
-                                </div>
-                                <div class="form-group">
-                                    <label>Region / District</label>
-                                    <input type="text" name="region" placeholder="e.g. Remote Area B"/>
-                                </div>
-                                <div class="form-group">
-                                    <label>Area Type</label>
-                                    <select name="is_remote">
-                                        <option value="false">Urban / Semi-urban</option>
-                                        <option value="true">Remote / Rural</option>
-                                    </select>
+                                <div class="form-group full"><label>Location Name *</label><input type="text" name="name" placeholder="e.g. Remote Village B" required/></div>
+                                <div class="form-group"><label>Latitude *</label><input type="number" name="latitude" step="any" placeholder="e.g. 30.1234" required/></div>
+                                <div class="form-group"><label>Longitude *</label><input type="number" name="longitude" step="any" placeholder="e.g. 77.9876" required/></div>
+                                <div class="form-group"><label>Region / District</label><input type="text" name="region" placeholder="e.g. Remote Area B"/></div>
+                                <div class="form-group"><label>Area Type</label>
+                                    <select name="is_remote"><option value="false">Urban / Semi-urban</option><option value="true">Remote / Rural</option></select>
                                 </div>
                             </div>
                             <div class="form-actions">
-                                <button type="button" class="btn btn-ghost" onclick="navigate('locations')">
-                                    Cancel
-                                </button>
-                                <button type="submit" class="btn btn-primary">
-                                    <i class="fas fa-save"></i> Save Location
-                                </button>
+                                <button type="button" class="btn btn-ghost" onclick="navigate('locations')">Cancel</button>
+                                <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Save Location</button>
                             </div>
                         </form>
                     </div>
@@ -407,166 +223,10 @@
             </div>
         </section>
 
-        <!-- ===== TRAFFIC PAGE ===== -->
-        <section class="page" id="page-traffic">
-            <div class="page-header">
-                <h2>Traffic & Road Conditions</h2>
-                <p>Route analysis and road condition check — powered by Karan Singh's Traffic Module</p>
-            </div>
-
-            <div class="info-banner" style="max-width:700px">
-                <i class="fas fa-info-circle"></i>
-                This feature connects to the Traffic Module running on <strong>port 3000</strong>. Make sure that server is running before using this page.
-            </div>
-
-            <div class="form-container">
-                <div class="card">
-                    <div class="card-header">
-                        <h3><i class="fas fa-route"></i> Check Route</h3>
-                        <span class="algo-badge" style="margin-bottom:0">
-                            <i class="fas fa-code-branch"></i> Haversine + Road Condition
-                        </span>
-                    </div>
-                    <div class="modal-body">
-                        <div class="form-grid">
-                            <div class="form-group">
-                                <label>Origin</label>
-                                <input type="text" id="trafficOrigin" list="placesList"
-                                    placeholder="e.g. Delhi, Noida"/>
-                            </div>
-                            <div class="form-group">
-                                <label>Destination</label>
-                                <input type="text" id="trafficDestination" list="placesList"
-                                    placeholder="e.g. Gurgaon, Chandigarh"/>
-                            </div>
-                        </div>
-                        <datalist id="placesList">
-                            <option value="Delhi">
-                            <option value="Noida">
-                            <option value="Gurgaon">
-                            <option value="Ghaziabad">
-                            <option value="Manali">
-                            <option value="Chandigarh">
-                        </datalist>
-                        <div class="form-actions" style="border:none;padding-top:10px;margin-top:4px;justify-content:flex-start">
-                            <button class="btn btn-primary" onclick="fetchTrafficRoute()">
-                                <i class="fas fa-search-location"></i> Analyse Route
-                            </button>
-                        </div>
-                        <div id="trafficResult"></div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
     </main>
 </div>
+
 <div class="toast" id="toast"></div>
-
-<!-- Edit Hospital Modal -->
-<div class="modal-overlay" id="editHospitalModal">
-    <div class="modal">
-        <div class="modal-header">
-            <h3><i class="fas fa-edit"></i> Edit Hospital</h3>
-            <button class="modal-close" onclick="closeModal('editHospitalModal')">
-                <i class="fas fa-times"></i>
-            </button>
-        </div>
-        <div class="modal-body">
-            <form id="editHospitalForm" onsubmit="submitEditHospital(event)">
-                <input type="hidden" name="id"/>
-                <div class="form-grid">
-                    <div class="form-group full">
-                        <label>Hospital Name</label>
-                        <input type="text" name="name" required/>
-                    </div>
-                    <div class="form-group full">
-                        <label>Full Address</label>
-                        <input type="text" name="address" required/>
-                    </div>
-                    <div class="form-group">
-                        <label>Latitude</label>
-                        <input type="number" name="latitude" step="any" required/>
-                    </div>
-                    <div class="form-group">
-                        <label>Longitude</label>
-                        <input type="number" name="longitude" step="any" required/>
-                    </div>
-                    <div class="form-group">
-                        <label>Contact Number</label>
-                        <input type="text" name="contact"/>
-                    </div>
-                    <div class="form-group">
-                        <label>Specialization</label>
-                        <input type="text" name="specialization"/>
-                    </div>
-                    <div class="form-group">
-                        <label>Available Beds</label>
-                        <input type="number" name="available_beds" min="0"/>
-                    </div>
-                    <div class="form-group">
-                        <label>Status</label>
-                        <select name="is_active">
-                            <option value="1">Active</option>
-                            <option value="0">Inactive</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="form-actions">
-                    <button type="button" class="btn btn-ghost" onclick="closeModal('editHospitalModal')">Cancel</button>
-                    <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Update Hospital</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-
-<!-- Edit Location Modal -->
-<div class="modal-overlay" id="editLocationModal">
-    <div class="modal">
-        <div class="modal-header">
-            <h3><i class="fas fa-edit"></i> Edit Location</h3>
-            <button class="modal-close" onclick="closeModal('editLocationModal')">
-                <i class="fas fa-times"></i>
-            </button>
-        </div>
-        <div class="modal-body">
-            <form id="editLocationForm" onsubmit="submitEditLocation(event)">
-                <input type="hidden" name="id"/>
-                <div class="form-grid">
-                    <div class="form-group full">
-                        <label>Location Name</label>
-                        <input type="text" name="name" required/>
-                    </div>
-                    <div class="form-group">
-                        <label>Latitude</label>
-                        <input type="number" name="latitude" step="any" required/>
-                    </div>
-                    <div class="form-group">
-                        <label>Longitude</label>
-                        <input type="number" name="longitude" step="any" required/>
-                    </div>
-                    <div class="form-group">
-                        <label>Region / District</label>
-                        <input type="text" name="region"/>
-                    </div>
-                    <div class="form-group">
-                        <label>Area Type</label>
-                        <select name="is_remote">
-                            <option value="false">Urban / Semi-urban</option>
-                            <option value="true">Remote / Rural</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="form-actions">
-                    <button type="button" class="btn btn-ghost" onclick="closeModal('editLocationModal')">Cancel</button>
-                    <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Update Location</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-
 <script src="app.js"></script>
 </body>
 </html>
