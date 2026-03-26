@@ -13,6 +13,7 @@ hospital-location-module/.env
 # Node
 node_modules/
 hospital-location-module/node_modules/
+Traffic\ Module/node_modules/
 npm-debug.log*
 
 # Build artifacts
