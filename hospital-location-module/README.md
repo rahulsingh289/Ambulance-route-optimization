@@ -8,9 +8,10 @@
 
 ## Overview
 
-This module manages hospital data and geographic locations for the Ambulance Route Optimization system. It provides a REST API backend and a dashboard UI for managing all data.
+This module manages hospital data and geographic locations for the Ambulance Route Optimization system. It provides a REST API and a dashboard UI.
 
-No database required — data is stored in JSON files.
+Built using **pure Node.js only** — no Express, no external frameworks, no database.
+Data is stored in JSON files.
 
 **Algorithms implemented:**
 - Binary Search — hospital name lookup, O(log n)
@@ -21,11 +22,13 @@ No database required — data is stored in JSON files.
 
 ## Tech Stack
 
-| Layer    | Technology              |
-|----------|-------------------------|
-| Backend  | Node.js, Express.js     |
-| Storage  | JSON files (no database)|
-| Frontend | HTML, CSS, Vanilla JS   |
+| Layer    | Technology                        |
+|----------|-----------------------------------|
+| Backend  | Node.js (built-in `http` module)  |
+| Storage  | JSON files                        |
+| Frontend | HTML, CSS, Vanilla JS             |
+
+No npm packages required. No `npm install` needed.
 
 ---
 
@@ -33,15 +36,15 @@ No database required — data is stored in JSON files.
 
 ```
 hospital-location-module/
-├── server.js              → Express API + all logic (algorithms inline)
+├── server.js          → Pure Node.js HTTP server + all API logic
 ├── package.json
 ├── data/
-│   ├── hospitals.json     → Hospital records (read/write)
-│   └── locations.json     → Location records (read/write)
+│   ├── hospitals.json → Hospital records (read/write)
+│   └── locations.json → Location records (read/write)
 └── dashboard/
-    ├── index.html         → Dashboard UI
-    ├── style.css          → Dark theme styles
-    └── app.js             → Dashboard logic
+    ├── index.html     → Dashboard UI
+    ├── style.css      → Dark theme styles
+    └── app.js         → Dashboard logic
 ```
 
 ---
@@ -49,9 +52,10 @@ hospital-location-module/
 ## Setup
 
 ```bash
-npm install
-npm start
+node server.js
 ```
+
+No `npm install` needed — uses only Node.js built-in modules (`http`, `fs`, `path`, `url`).
 
 Server runs at `http://localhost:3001`
 
@@ -59,11 +63,43 @@ Open `dashboard/index.html` in your browser.
 
 ---
 
+## API Endpoints
+
+### Hospitals
+
+| Method | Endpoint                           | Description                              |
+|--------|------------------------------------|------------------------------------------|
+| GET    | `/api/hospitals`                   | All active hospitals                     |
+| GET    | `/api/hospitals/:id`               | Single hospital by ID                    |
+| GET    | `/api/hospitals/search?name=`      | Binary Search by exact name — O(log n)   |
+| GET    | `/api/hospitals/nearest?lat=&lng=` | Nearest hospitals — Haversine + Merge Sort |
+| POST   | `/api/hospitals`                   | Add new hospital (saved to JSON)         |
+
+### Locations
+
+| Method | Endpoint          | Description                      |
+|--------|-------------------|----------------------------------|
+| GET    | `/api/locations`  | All locations                    |
+| POST   | `/api/locations`  | Add new location (saved to JSON) |
+
+---
+
+## Algorithms
+
+**Binary Search** — O(log n)
+Hospitals sorted alphabetically, then binary searched by name.
+
+**Haversine Formula**
+Calculates real-world distance in km between two GPS lat/lng points.
+
+**Merge Sort** — O(n log n)
+Sorts hospitals by `distance_km` for the nearest hospital feature.
+
+---
+
 ## Data Files
 
-All data is stored as plain JSON — no MySQL or any database needed.
-
-`data/hospitals.json` — list of hospital objects:
+`data/hospitals.json` — hospital records:
 ```json
 {
   "id": 1,
@@ -78,7 +114,7 @@ All data is stored as plain JSON — no MySQL or any database needed.
 }
 ```
 
-`data/locations.json` — list of location objects:
+`data/locations.json` — location records:
 ```json
 {
   "id": 1,
@@ -89,55 +125,6 @@ All data is stored as plain JSON — no MySQL or any database needed.
   "is_remote": true
 }
 ```
-
-When you POST a new hospital or location via the API, it gets appended to the respective JSON file automatically.
-
----
-
-## API Endpoints
-
-### Hospitals
-
-| Method | Endpoint                           | Description                        |
-|--------|------------------------------------|------------------------------------|
-| GET    | `/api/hospitals`                   | All active hospitals               |
-| GET    | `/api/hospitals/:id`               | Single hospital by ID              |
-| GET    | `/api/hospitals/search?name=`      | Binary Search by exact name        |
-| GET    | `/api/hospitals/nearest?lat=&lng=` | Nearest hospitals (Haversine + Merge Sort) |
-| POST   | `/api/hospitals`                   | Add new hospital                   |
-
-### Locations
-
-| Method | Endpoint          | Description        |
-|--------|-------------------|--------------------|
-| GET    | `/api/locations`  | All locations      |
-| POST   | `/api/locations`  | Add new location   |
-
----
-
-## Algorithms
-
-**Binary Search** — `server.js`
-Hospitals fetched and sorted alphabetically, then binary searched by name.
-Time: O(log n)
-
-**Haversine Formula** — `server.js`
-Calculates real-world distance in km between two GPS coordinates.
-
-**Merge Sort** — `server.js`
-Sorts hospitals by `distance_km` for the nearest hospital feature.
-Time: O(n log n)
-
----
-
-## Dashboard Features
-
-- Stats: active hospitals, available beds, locations, remote areas
-- Searchable hospital and location tables
-- Add hospital / add location forms
-- Binary search page
-- Find nearest hospital with GPS auto-detect
-- Live API status indicator
 
 ---
 

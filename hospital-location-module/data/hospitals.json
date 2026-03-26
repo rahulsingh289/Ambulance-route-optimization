@@ -32,4 +32,26 @@
     "available_beds": 10,
     "is_active": true
   },
+  {
+    "id": 1774528415617,
+    "name": "Valley Hospital",
+    "address": "Valley Road",
+    "latitude": 30.25,
+    "longitude": 77.95,
+    "contact": "01111111111",
+    "specialization": "General",
+    "available_beds": 8,
+    "is_active": true
+  },
+  {
+    "id": 1774528493253,
+    "name": "CGS Hospital",
+    "address": "Bell Road",
+    "latitude": 56789,
+    "longitude": 9876567,
+    "contact": "973678936",
+    "specialization": "Heart Attack",
+    "available_beds": 567,
+    "is_active": true
+  }
 ]
