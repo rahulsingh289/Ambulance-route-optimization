@@ -1,29 +1,31 @@
 # Hospital & Location Management Module
 
-**Project:** Ambulance Route Optimization in Remote Areas  
-**Team:** Visitors  
-**Developer:** Rahul Singh  
+**Project:** Ambulance Route Optimization in Remote Areas
+**Team:** Visitors
+**Developer:** Rahul Singh
 
 ---
 
 ## Overview
 
-This module manages hospital data and geographic locations for the Ambulance Route Optimization system. It exposes a REST API backend and a full dashboard UI for managing all data.
+This module manages hospital data and geographic locations for the Ambulance Route Optimization system. It provides a REST API backend and a dashboard UI for managing all data.
 
-Key algorithms implemented:
-- **Binary Search** — fast hospital lookup by name, O(log n)
-- **Haversine Formula** — real-world distance (km) between two GPS coordinates
-- **Merge Sort** — ranks hospitals by distance for the nearest hospital feature
+No database required — data is stored in JSON files.
+
+**Algorithms implemented:**
+- Binary Search — hospital name lookup, O(log n)
+- Haversine Formula — real-world GPS distance in km
+- Merge Sort — ranks hospitals by distance, O(n log n)
 
 ---
 
 ## Tech Stack
 
-| Layer    | Technology                  |
-|----------|-----------------------------|
-| Backend  | Node.js, Express.js         |
-| Database | MySQL (mysql2 driver)       |
-| Frontend | HTML5, CSS3, Vanilla JS     |
+| Layer    | Technology              |
+|----------|-------------------------|
+| Backend  | Node.js, Express.js     |
+| Storage  | JSON files (no database)|
+| Frontend | HTML, CSS, Vanilla JS   |
 
 ---
 
@@ -31,66 +33,64 @@ Key algorithms implemented:
 
 ```
 hospital-location-module/
-├── server.js                  → Express app entry point
+├── server.js              → Express API + all logic (algorithms inline)
 ├── package.json
-├── .env.example               → Environment variable template
-├── db/
-│   ├── connection.js          → MySQL connection pool
-│   └── schema.sql             → Tables + sample data
-├── hospital/
-│   ├── controller.js          → Hospital CRUD + search + nearest
-│   ├── routes.js              → Hospital API routes
-│   └── utils.js               → Binary Search, Haversine, Merge Sort
-├── location/
-│   ├── controller.js          → Location CRUD
-│   └── routes.js              → Location API routes
+├── data/
+│   ├── hospitals.json     → Hospital records (read/write)
+│   └── locations.json     → Location records (read/write)
 └── dashboard/
-    ├── index.html             → Dashboard UI
-    ├── style.css              → Dark theme styles
-    └── app.js                 → Dashboard logic
+    ├── index.html         → Dashboard UI
+    ├── style.css          → Dark theme styles
+    └── app.js             → Dashboard logic
 ```
 
 ---
 
 ## Setup
 
-**1. Install dependencies**
 ```bash
-cd hospital-location-module
 npm install
-```
-
-**2. Setup the database**
-
-Run inside MySQL:
-```sql
-source db/schema.sql
-```
-
-**3. Configure environment**
-```bash
-cp .env.example .env
-```
-
-Edit `.env` with your MySQL credentials:
-```
-PORT=3001
-DB_HOST=localhost
-DB_USER=root
-DB_PASSWORD=yourpassword
-DB_NAME=ambulance_system
-```
-
-**4. Start the server**
-```bash
 npm start
-# or for auto-reload:
-npm run dev
 ```
 
-**5. Open the dashboard**
+Server runs at `http://localhost:3001`
 
-Open `dashboard/index.html` in your browser. Server runs at `http://localhost:3001`.
+Open `dashboard/index.html` in your browser.
+
+---
+
+## Data Files
+
+All data is stored as plain JSON — no MySQL or any database needed.
+
+`data/hospitals.json` — list of hospital objects:
+```json
+{
+  "id": 1,
+  "name": "City General Hospital",
+  "address": "12 Main Road, District A",
+  "latitude": 30.3165,
+  "longitude": 78.0322,
+  "contact": "01234567890",
+  "specialization": "General",
+  "available_beds": 20,
+  "is_active": true
+}
+```
+
+`data/locations.json` — list of location objects:
+```json
+{
+  "id": 1,
+  "name": "Remote Village B",
+  "latitude": 30.1234,
+  "longitude": 77.9876,
+  "region": "Remote Area B",
+  "is_remote": true
+}
+```
+
+When you POST a new hospital or location via the API, it gets appended to the respective JSON file automatically.
 
 ---
 
@@ -98,102 +98,53 @@ Open `dashboard/index.html` in your browser. Server runs at `http://localhost:30
 
 ### Hospitals
 
-| Method | Endpoint                          | Description                              |
-|--------|-----------------------------------|------------------------------------------|
-| GET    | `/api/hospitals`                  | Get all active hospitals                 |
-| GET    | `/api/hospitals/:id`              | Get single hospital by ID                |
-| GET    | `/api/hospitals/search?name=`     | Binary search by exact name              |
-| GET    | `/api/hospitals/nearest?lat=&lng=`| Hospitals sorted by distance (Haversine) |
-| POST   | `/api/hospitals`                  | Add a new hospital                       |
-| PUT    | `/api/hospitals/:id`              | Update hospital details                  |
-| DELETE | `/api/hospitals/:id`              | Soft delete (sets is_active = false)     |
+| Method | Endpoint                           | Description                        |
+|--------|------------------------------------|------------------------------------|
+| GET    | `/api/hospitals`                   | All active hospitals               |
+| GET    | `/api/hospitals/:id`               | Single hospital by ID              |
+| GET    | `/api/hospitals/search?name=`      | Binary Search by exact name        |
+| GET    | `/api/hospitals/nearest?lat=&lng=` | Nearest hospitals (Haversine + Merge Sort) |
+| POST   | `/api/hospitals`                   | Add new hospital                   |
 
 ### Locations
 
-| Method | Endpoint               | Description              |
-|--------|------------------------|--------------------------|
-| GET    | `/api/locations`       | Get all locations        |
-| GET    | `/api/locations/:id`   | Get single location      |
-| POST   | `/api/locations`       | Add a new location       |
-| PUT    | `/api/locations/:id`   | Update location          |
-| DELETE | `/api/locations/:id`   | Hard delete location     |
+| Method | Endpoint          | Description        |
+|--------|-------------------|--------------------|
+| GET    | `/api/locations`  | All locations      |
+| POST   | `/api/locations`  | Add new location   |
 
 ---
 
 ## Algorithms
 
-### Binary Search — `hospital/utils.js`
-Hospitals are fetched from the DB sorted alphabetically, then binary searched in JS.  
-Time complexity: **O(log n)**
+**Binary Search** — `server.js`
+Hospitals fetched and sorted alphabetically, then binary searched by name.
+Time: O(log n)
 
-```js
-binarySearchByName(hospitals, targetName)
-```
+**Haversine Formula** — `server.js`
+Calculates real-world distance in km between two GPS coordinates.
 
-### Haversine Formula — `hospital/utils.js`
-Calculates the real-world distance in kilometres between two lat/lng points using the Earth's radius.
-
-```js
-haversineDistance(lat1, lon1, lat2, lon2) → km
-```
-
-### Merge Sort — `hospital/utils.js`
-Sorts hospitals by `distance_km` ascending for the nearest hospital ranking.  
-Time complexity: **O(n log n)**
-
-```js
-mergeSortByDistance(hospitalsWithDistance)
-```
+**Merge Sort** — `server.js`
+Sorts hospitals by `distance_km` for the nearest hospital feature.
+Time: O(n log n)
 
 ---
 
 ## Dashboard Features
 
-- Stats overview — active hospitals, available beds, locations, remote areas
-- Searchable and filterable hospital and location tables
-- Add / Edit / Deactivate hospitals via forms and modals
-- Binary search page with algorithm badge
-- Find Nearest Hospital with GPS auto-detect and ranked results
+- Stats: active hospitals, available beds, locations, remote areas
+- Searchable hospital and location tables
+- Add hospital / add location forms
+- Binary search page
+- Find nearest hospital with GPS auto-detect
 - Live API status indicator
-- Toast notifications for all actions
 
 ---
 
 ## Integration Points
 
-| Module | How it uses this module |
-|--------|------------------------|
-| Route Optimization (Rohit) | Calls `GET /api/hospitals/nearest` to get candidate hospitals before computing the optimal path |
-| Emergency Request Handling (Kabeer) | Calls `GET /api/hospitals/:id` to check bed availability before dispatching |
-| Traffic & Road Condition (Karan) | Uses hospital coordinates from this module for routing decisions |
-
----
-
-## Traffic Module Integration
-
-The dashboard includes a built-in **Traffic & Roads** page that connects to Karan Singh's Traffic Module running on port 3000.
-
-It displays:
-- Route distance and estimated travel time
-- Road condition (Good / Moderate / Poor / Blocked) with colour-coded badge
-- Recommended hospital for the given route
-- Google Maps link for the route
-
-Both servers must be running for full functionality:
-```bash
-# Terminal 1 — Hospital Module (port 3001)
-cd hospital-location-module && npm start
-
-# Terminal 2 — Traffic Module (port 3000)
-cd "Traffic Module" && npm start
-```
-
----
-
-## Sample Data
-
-The schema seeds the following on first run:
-
-**Hospitals:** City General Hospital, Rural Health Center, Mountain Care Hospital, Valley Medical Center, Remote Aid Hospital
-
-**Locations:** District A Center, Remote Village B, Hill Station C, Valley Town D, Forest Area E, Urban Zone F
+| Module | Usage |
+|--------|-------|
+| Route Optimization (Rohit) | Calls `GET /api/hospitals/nearest` before computing optimal path |
+| Emergency Handling (Kabeer) | Calls `GET /api/hospitals/:id` to check bed availability |
+| Traffic & Roads (Karan) | Uses hospital coordinates for routing decisions |
