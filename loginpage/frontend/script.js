@@ -10,7 +10,6 @@ function login(){
         return;
     }
 
-    // Demo login (connect with backend later)
     if(email === "admin@gmail.com" && password === "1234"){
         message.innerHTML = "✅ Login Successful!";
         message.style.color = "lightgreen";
