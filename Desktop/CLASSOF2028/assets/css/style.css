@@ -1103,3 +1103,83 @@ strong { color: var(--text-dark); }
   .page-main { padding: 0 12px 60px; }
   .card { padding: 16px; }
 }
+
+/*-----------------------------------*\
+  ANDROID / MOBILE FIXES
+\*-----------------------------------*/
+
+/* Prevent horizontal overflow on all screens */
+html, body {
+  overflow-x: hidden;
+  -webkit-text-size-adjust: 100%;
+}
+
+/* Fix touch tap highlight */
+a, button { -webkit-tap-highlight-color: transparent; }
+
+/* Ensure images never overflow */
+img { max-width: 100%; height: auto; }
+
+/* Fix hero actions wrapping on small screens */
+@media (max-width: 480px) {
+  .hero-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .hero-actions .btn-primary,
+  .hero-actions .btn-secondary {
+    width: 100%;
+    justify-content: center;
+  }
+
+  /* Fix header brand overflow */
+  .header-inner {
+    gap: 8px;
+  }
+  .brand-sub { display: none; }
+
+  /* Fix quick access bar on small screens */
+  .quick-access-bar {
+    padding: 0 12px;
+    gap: 10px;
+  }
+  .qa-label { display: none; }
+
+  /* Fix profile stats on small screens */
+  .profile-stats {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .pstat-label { font-size: 9px; }
+  .pstat-value { font-size: 14px; }
+
+  /* Fix cert grid */
+  .cert-grid { grid-template-columns: 1fr; }
+
+  /* Fix coding profiles */
+  .coding-profiles-grid { grid-template-columns: 1fr; }
+
+  /* Fix two col grid */
+  .two-col-grid { grid-template-columns: 1fr; }
+
+  /* Fix gallery */
+  .gallery-grid { grid-template-columns: 1fr; }
+
+  /* Fix projects grid */
+  .projects-db-grid { grid-template-columns: 1fr; }
+
+  /* Fix skills grid */
+  .skills-grid { grid-template-columns: 1fr; }
+  .concept-pills-grid { grid-template-columns: 1fr; }
+
+  /* Fix section title overflow */
+  .section-title { font-size: 18px; word-break: break-word; }
+
+  /* Fix card text overflow */
+  .card-text, .tl-desc, .bullet-list li { font-size: 13px; }
+
+  /* Fix footer */
+  .site-footer { font-size: 12px; }
+
+  /* Fix scroll top button position */
+  .scroll-top { bottom: 12px; right: 12px; }
+}
