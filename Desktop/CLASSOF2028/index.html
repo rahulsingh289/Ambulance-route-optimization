@@ -1,0 +1,1126 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rahul Singh — BACKEND Developer</title>
+  <link rel="shortcut icon" href="assets/images/app-icon.png" type="image/png">
+  <link rel="stylesheet" href="./assets/css/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<!-- TOP NAVBAR -->
+<header class="top-header" id="topHeader">
+  <div class="header-inner">
+    <div class="header-brand">
+      <div class="brand-avatar">RS</div>
+      <div class="brand-info">
+        <span class="brand-name">Rahul Singh</span>
+        <span class="brand-sub">CSE STUDENT • BACKEND DEVELOPER</span>
+      </div>
+    </div>
+    <nav class="header-nav">
+      <a href="#about"        class="nav-link active" data-section="about">About</a>
+      <a href="#projects"     class="nav-link" data-section="projects">Projects</a>
+      <a href="#skills"       class="nav-link" data-section="skills">Skills</a>
+      <a href="#education"    class="nav-link" data-section="education">Education</a>
+      <a href="#achievements" class="nav-link" data-section="achievements">Achievements</a>
+      <a href="#certifications" class="nav-link" data-section="certifications">Certifications</a>
+      <a href="#opensource"   class="nav-link" data-section="opensource">OpenSource</a>
+      <a href="#coding"       class="nav-link" data-section="coding">Coding</a>
+      <a href="#events"       class="nav-link" data-section="events">Events</a>
+      <a href="#contact"      class="nav-link" data-section="contact">Contact</a>
+    </nav>
+    <label class="theme-toggle" title="Toggle dark mode" aria-label="Toggle dark mode">
+      <input type="checkbox" id="themeToggle">
+      <span class="toggle-track"><span class="toggle-thumb"></span></span>
+    </label>
+    <a href="assignments/rahulsingh502.pdf" target="_blank" class="btn-connect">View Resume</a>
+    <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <!-- Quick Access bar -->
+  <div class="quick-access-bar">
+    <span class="qa-label">QUICK ACCESS</span>
+    <div class="qa-tabs">
+      <button class="qa-tab active" data-qa="projects">Projects</button>
+      <button class="qa-tab" data-qa="skills">Skills</button>
+      <button class="qa-tab" data-qa="education">Education</button>
+      <button class="qa-tab" data-qa="achievements">Achievements</button>
+      <button class="qa-tab" data-qa="contact">Contact</button>
+    </div>
+  </div>
+  <nav class="mobile-nav" id="mobileNav">
+    <a href="#about"           class="nav-link" data-section="about">About</a>
+    <a href="#projects"        class="nav-link" data-section="projects">Projects</a>
+    <a href="#skills"          class="nav-link" data-section="skills">Skills</a>
+    <a href="#education"       class="nav-link" data-section="education">Education</a>
+    <a href="#achievements"    class="nav-link" data-section="achievements">Achievements</a>
+    <a href="#certifications"  class="nav-link" data-section="certifications">Certifications</a>
+    <a href="#opensource"      class="nav-link" data-section="opensource">Open Source</a>
+    <a href="#coding"          class="nav-link" data-section="coding">Coding</a>
+    <a href="#events"          class="nav-link" data-section="events">Events</a>
+    <a href="#contact"         class="nav-link" data-section="contact">Contact</a>
+  </nav>
+</header>
+
+<main class="page-main">
+
+<!-- HERO SECTION -->
+<section class="hero-section" id="about">
+  <div class="hero-left">
+    <div class="hero-badge">
+      <span class="badge-dot"></span>
+      COMPUTER SCIENCE &amp; ENGINEERING • STUDENT • DEVELOPER
+    </div>
+    <h1 class="hero-title">
+      <span class="hero-name-plain">Rahul</span> <span class="hero-name-orange">Singh</span>
+    </h1>
+    <p class="hero-subtitle">B.Tech (CSE) • 2nd Year • GEHU</p>
+    <p class="hero-desc">
+      I'm a second-year Computer Science Engineering student at <strong>Graphic Era Hill University, Dehradun</strong>.
+      Driven by curiosity, I love building things — from web apps to automation tools — and I'm always
+      looking for ways to turn ideas into real-world solutions.
+    </p>
+    <div class="hero-tags">
+      <span class="tag">Backend Development</span>
+      <span class="tag">Data Structures &amp; Algorithms</span>
+      <span class="tag">Node.js &amp; MongoDB</span>
+      <span class="tag">System Design</span>
+      <span class="tag">C, C++, Java</span>
+    </div>
+    <div class="hero-actions">
+      <a href="assignments/rahulsingh502.pdf" target="_blank" class="btn-primary">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Download RESUME
+      </a>
+      <a href="https://github.com/rahulsingh289" target="_blank" class="btn-secondary">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+        GitHub
+      </a>
+    </div>
+    <div class="hero-meta-grid">
+      <div class="hero-meta-col">
+        <p class="meta-label">ACADEMIC PROFILE</p>
+        <p class="meta-value">B.Tech (CSE), Graphic Era Hill University</p>
+        <p class="meta-sub">2024 — 2028 • Dehradun, Uttarakhand</p>
+      </div>
+      <div class="hero-meta-col">
+        <p class="meta-label">ACTIVITIES</p>
+        <p class="meta-value">National Service Scheme (NSS)</p>
+        <p class="meta-sub">Social Development Initiatives • 2024-2025</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Profile Card -->
+  <div class="hero-right">
+    <div class="profile-card">
+      <div class="profile-card-top">
+        <div class="profile-photo-wrap">
+          <img src="assets/images/rahul-profile.jpeg" alt="Rahul Singh" class="profile-photo">
+          <span class="profile-status-dot"></span>
+        </div>
+      </div>
+      <p class="profile-role">CSE STUDENT • 2ND YEAR</p>
+      <h3 class="profile-university">Graphic Era Hill University</h3>
+      <div class="profile-tags">
+        <span class="ptag">Dehradun, Uttarakhand</span>
+        <span class="ptag">B.Tech CSE</span>
+      </div>
+      <div class="profile-id-chips">
+        <a href="https://github.com/rahulsingh289" target="_blank" class="id-chip">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+          GitHub Profile
+        </a>
+        <a href="https://www.linkedin.com/in/rahul-singh-64a861300?utm_source=share_via&utm_content=profile&utm_medium=member_android" target="_blank" class="id-chip">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          LinkedIn
+        </a>
+        <a href="mailto:chandrahul2380@gmail.com" class="id-chip">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          chandrahul2380@gmail.com
+        </a>
+        <a href="https://orcid.org/0009-0006-4915-0490" target="_blank" class="id-chip id-chip-orcid">
+          <!-- ORCID logo SVG -->
+          <svg width="14" height="14" viewBox="0 0 256 256" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="128" cy="128" r="128" fill="#A6CE39"/>
+            <path d="M86.3 186.2H70.9V79.1h15.4v107.1zM108.9 79.1h41.6c39.6 0 57 28.3 57 53.6 0 27.5-21.5 53.6-56.8 53.6h-41.8V79.1zm15.4 93.3h24.5c34.9 0 42.9-26.5 42.9-39.7C191.7 111.2 178 93 148 93h-23.7v79.4zM88.7 56.8c0 5.5-4.5 10.1-10.1 10.1s-10.1-4.6-10.1-10.1c0-5.6 4.5-10.1 10.1-10.1s10.1 4.5 10.1 10.1z" fill="white"/>
+          </svg>
+          ORCID: 0009-0006-4915-0490
+        </a>
+      </div>
+      <div class="profile-stats">
+        <div class="pstat">
+          <p class="pstat-label">Academic</p>
+          <p class="pstat-value">2nd Year</p>
+          <p class="pstat-sub">2024-2028</p>
+        </div>
+        <div class="pstat">
+          <p class="pstat-label">Projects</p>
+          <p class="pstat-value">5+</p>
+          <p class="pstat-sub">Built &amp; Deployed</p>
+        </div>
+        <div class="pstat">
+          <p class="pstat-label">Skills</p>
+          <p class="pstat-value">10+</p>
+          <p class="pstat-sub">Technologies</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT SECTION -->
+<section class="content-section" id="about-detail">
+  <div class="section-header">
+    <h2 class="section-title"><span class="dot-orange">●</span> About</h2>
+    <span class="section-sub">Academic Journey &amp; Focus Areas</span>
+  </div>
+  <div class="two-col-grid">
+    <div class="card">
+      <p class="card-text">
+        I am a student of <strong>Computer Science &amp; Engineering</strong> with a growing foundation in
+        <strong>Web Development, Data Structures &amp; Algorithms</strong>, and <strong>System Design</strong>.
+        My work spans building full-stack web applications, solving competitive programming problems, and
+        exploring intelligent data-driven solutions.
+      </p>
+      <p class="card-text">
+        I'm currently pursuing my <strong>B.Tech in Computer Science &amp; Engineering</strong> from
+        Graphic Era Hill University, Dehradun (2024-2028). I actively participate in hackathons, workshops,
+        coding contests, and <strong>community events</strong>.
+      </p>
+      <div class="tag-row">
+        <span class="tag-outline">B.Tech (CSE), GEHU</span>
+        <span class="tag-outline">Workshops</span>
+        <span class="tag-outline">Coding Contests</span>
+        <span class="tag-outline">Hackathons</span>
+      </div>
+    </div>
+    <div class="card">
+      <p class="card-label-sm">CORE INTERESTS</p>
+      <ul class="bullet-list">
+        <li>Full-stack web development with <strong>Node.js, Express &amp; MongoDB</strong>.</li>
+        <li><strong>Data Structures &amp; Algorithms</strong> — Competitive programming and problem solving.</li>
+        <li>Computer Networks & Operating Systems.</li>
+        <li>Cloud computing fundamentals and <strong>AWS services</strong>.</li>
+        <li>Open-source contribution and collaborative development.</li>
+      </ul>
+      <p class="card-label-sm" style="margin-top:20px">TECHNICAL SKILLS</p>
+      <div class="tag-row">
+        <span class="tag-outline">C / C++</span>
+        <span class="tag-outline">Java</span>
+        <span class="tag-outline">Python</span>
+        <span class="tag-outline">JavaScript</span>
+        <span class="tag-outline">HTML / CSS</span>
+        <span class="tag-outline">Node.js</span>
+        <span class="tag-outline">MongoDB</span>
+        <span class="tag-outline">MySQL</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS SECTION -->
+<section class="content-section" id="projects">
+  <div class="section-header">
+    <h2 class="section-title"><span class="dot-orange">●</span> Projects &amp; Selected Work</h2>
+    <span class="section-sub">Representative Contributions In Web, Automation &amp; Algorithms</span>
+  </div>
+
+  <!-- Dynamic grid loaded from DB — falls back to static cards if backend is offline -->
+  <div class="projects-db-grid" id="projectsGrid">
+    <!-- static fallback cards (shown when backend is offline) -->
+    <div class="card project-db-card">
+      <p class="card-heading">Ambulance Route Optimization System</p>
+      <p class="card-text">Interactive web tool to visualize sorting algorithms (Bubble, Merge, Quick) with step-by-step animation.</p>
+      <div class="proj-tech-row">
+        <span class="tag-outline">HTML</span><span class="tag-outline">CSS</span><span class="tag-outline">JavaScript</span><span class="tag-outline">Node.js</span><span class="tag-outline">MySQL</span>
+      </div>
+      <div class="proj-links">
+        <a href="https://github.com/" target="_blank" class="btn-secondary proj-btn">GitHub</a>
+      </div>
+    </div>
+    <div class="card project-db-card">
+      <p class="card-heading">Event Management Utility System</p>
+      <p class="card-text">  Full-stack CRUD app with Node.js, java, MY Sql for managing event records.</p>
+      <div class="proj-tech-row">
+        <span class="tag-outline">Python</span><span class="tag-outline">BeautifulSoup</span><span class="tag-outline">Schedule</span>
+      </div>
+      <div class="proj-links">
+        <a href="https://github.com/" target="_blank" class="btn-secondary proj-btn">GitHub</a>
+      </div>
+    </div>
+    <div class="card project-db-card">
+      <p class="card-heading">FreeLance Platform</p>
+      <p class="card-text">Interactive online service or marketplace that connects freelancers (people offering services) with clients (individuals or businesses) who need specific tasks or projects done.</p>
+      <div class="proj-tech-row">
+        <span class="tag-outline">HTML</span><span class="tag-outline">CSS</span><span class="tag-outline">JavaScript</span>
+      </div>
+      <div class="proj-links">
+        <a href="https://github.com/" target="_blank" class="btn-secondary proj-btn">GitHub</a>
+      </div>
+    </div>
+    <div class="card project-db-card">
+      <p class="card-heading">Job Scrapper</p>
+      <p class="card-text"> Python script that automates repetitive file management and web scraping tasks using BeautifulSoup and schedule library.</p>
+      <div class="proj-tech-row">
+        <span class="tag-outline">Node.js</span><span class="tag-outline">Express</span><span class="tag-outline">MongoDB</span><span class="tag-outline">EJS</span>
+      </div>
+      <div class="proj-links">
+        <a href="https://github.com/" target="_blank" class="btn-secondary proj-btn">GitHub</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS SECTION -->
+<!-- SKILLS SECTION -->
+<section class="content-section" id="skills">
+  <div class="section-header">
+    <h2 class="section-title"><span class="dot-orange">●</span> Skills</h2>
+    <span class="section-sub">Technical proficiency &amp; tools</span>
+  </div>
+
+  <!-- Skill category tabs -->
+  <div class="skill-tabs">
+    <button class="skill-tab active" data-tab="languages">Languages</button>
+    <button class="skill-tab" data-tab="frameworks">Frameworks &amp; Tools</button>
+    <button class="skill-tab" data-tab="concepts">Concepts</button>
+  </div>
+
+  <!-- Languages panel -->
+  <div class="skill-panel active" id="tab-languages">
+    <div class="skill-bars-card card">
+      <div class="skills-grid">
+        <div class="skill-bar-item">
+          <div class="skill-bar-header">
+            <span class="skill-name-wrap">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" width="18" height="18" alt="">
+              HTML / CSS
+            </span>
+          </div>
+        </div>
+        <div class="skill-bar-item">
+          <div class="skill-bar-header">
+            <span class="skill-name-wrap">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cplusplus/cplusplus-original.svg" width="18" height="18" alt="">
+              C / C++
+            </span>
+          </div>
+        </div>
+        <div class="skill-bar-item">
+          <div class="skill-bar-header">
+            <span class="skill-name-wrap">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" width="18" height="18" alt="">
+              Python
+            </span>
+          </div>
+        </div>
+        <div class="skill-bar-item">
+          <div class="skill-bar-header">
+            <span class="skill-name-wrap">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" width="18" height="18" alt="">
+              JavaScript
+            </span>
+          </div>
+        </div>
+        <div class="skill-bar-item">
+          <div class="skill-bar-header">
+            <span class="skill-name-wrap">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg" width="18" height="18" alt="">
+              Java
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Frameworks panel -->
+  <div class="skill-panel" id="tab-frameworks">
+    <div class="skill-bars-card card">
+      <div class="skills-grid">
+        <div class="skill-bar-item">
+          <div class="skill-bar-header">
+            <span class="skill-name-wrap">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" width="18" height="18" alt="">
+              Git / GitHub
+            </span>
+          </div>
+        </div>
+        <div class="skill-bar-item">
+          <div class="skill-bar-header">
+            <span class="skill-name-wrap">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" width="18" height="18" alt="">
+              Node.js / Express
+            </span>
+          </div>
+        </div>
+        <div class="skill-bar-item">
+          <div class="skill-bar-header">
+            <span class="skill-name-wrap">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg" width="18" height="18" alt="">
+              MongoDB
+            </span>
+          </div>
+        </div>
+        <div class="skill-bar-item">
+          <div class="skill-bar-header">
+            <span class="skill-name-wrap">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg" width="18" height="18" alt="">
+              MySQL
+            </span>
+          </div>
+        </div>
+        <div class="skill-bar-item">
+          <div class="skill-bar-header">
+            <span class="skill-name-wrap">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg" width="18" height="18" alt="">
+              Linux / CLI
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Concepts panel -->
+  <div class="skill-panel" id="tab-concepts">
+    <div class="card">
+      <div class="concept-pills-grid">
+        <div class="concept-pill">
+          <span class="concept-dot" style="background:#6366f1"></span>
+          Data Structures &amp; Algorithms
+        </div>
+        <div class="concept-pill">
+          <span class="concept-dot" style="background:#059669"></span>
+          Object-Oriented Programming
+        </div>
+        <div class="concept-pill">
+          <span class="concept-dot" style="background:#f59e0b"></span>
+          REST API Design
+        </div>
+        <div class="concept-pill">
+          <span class="concept-dot" style="background:#0f766e"></span>
+          Database Design (SQL / NoSQL)
+        </div>
+        <div class="concept-pill">
+          <span class="concept-dot" style="background:#7c3aed"></span>
+          Operating Systems
+        </div>
+        <div class="concept-pill">
+          <span class="concept-dot" style="background:#dc2626"></span>
+          Computer Networks
+        </div>
+        <div class="concept-pill">
+          <span class="concept-dot" style="background:#0284c7"></span>
+          Cloud Fundamentals (AWS)
+        </div>
+        <div class="concept-pill">
+          <span class="concept-dot" style="background:#d97706"></span>
+          Version Control (Git)
+        </div>
+        <div class="concept-pill">
+          <span class="concept-dot" style="background:#6366f1"></span>
+          Responsive Web Design
+        </div>
+        <div class="concept-pill">
+          <span class="concept-dot" style="background:#059669"></span>
+          Python Automation &amp; Scripting
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+</section>
+
+<!-- EDUCATION SECTION -->
+<section class="content-section" id="education">
+  <div class="section-header">
+    <h2 class="section-title"><span class="dot-orange">●</span> Education &amp; Experience</h2>
+    <span class="section-sub">Academic background &amp; learning journey</span>
+  </div>
+  <div class="two-col-grid">
+    <div class="card">
+      <p class="card-heading">Academic Positions</p>
+      <div class="timeline">
+        <div class="tl-item">
+          <div class="tl-dot"></div>
+          <div>
+            <p class="tl-title">B.Tech — Computer Science &amp; Engineering</p>
+            <p class="tl-meta">Graphic Era Hill University, Dehradun • 2024 – Present (2nd Year)</p>
+            <p class="tl-desc">Studying core CS subjects including DSA, DBMS, OS, Computer Networks, and Web Technologies. Active in hackathons and coding clubs.</p>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot"></div>
+          <div>
+            <p class="tl-title">Class XII — Science (PCM + CS)</p>
+            <p class="tl-meta">Kendriya Vidyalaya • 2022 – 2024</p>
+            <p class="tl-desc">Completed senior secondary with Physics, Chemistry, Mathematics and Computer Science. Scored 85%+.</p>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot"></div>
+          <div>
+            <p class="tl-title">Class X — Secondary Education</p>
+            <p class="tl-meta">Kendriya Vidyalaya • 2022</p>
+            <p class="tl-desc">Completed secondary education with distinction. Strong foundation in Mathematics and Science.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <p class="card-heading">Courses &amp; Certifications</p>
+      <ul class="bullet-list">
+        <li>AWS Cloud Practitioner Essentials — AWS Training</li>
+        <li>Python for Everybody — Coursera / University of Michigan</li>
+        <li>The Web Developer Bootcamp — Udemy</li>
+        <li>Data Structures &amp; Algorithms in C++ — Self-paced</li>
+        <li>Git &amp; GitHub Complete Guide — Udemy</li>
+      </ul>
+      <p class="card-heading" style="margin-top:24px">Workshops &amp; Training</p>
+      <ul class="bullet-list">
+        <li>Participated in <strong>AWS JAM 2026</strong> — cloud challenge event.</li>
+        <li>Attended <strong>Machine Learning workshops</strong> — supervised/unsupervised learning, model training &amp; real-world applications.</li>
+        <li>Attended <strong>n8n Automation workshops</strong> — building no-code workflow automations, API integrations &amp; scheduled pipelines.</li>
+        <li>NSS volunteer — community service and social awareness programs.</li>
+        <li>Attended multiple college-level hackathons and coding contests.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ACHIEVEMENTS SECTION -->
+<section class="content-section" id="achievements">
+  <div class="section-header">
+    <h2 class="section-title"><span class="dot-orange">●</span> Achievements &amp; Activities</h2>
+    <span class="section-sub">Awards, positions and co-curricular engagement</span>
+  </div>
+  <div class="card full-card">
+    <ul class="bullet-list achievements-list">
+      <li>Participated in <strong>AWS JAM 2026</strong> — cloud-based competitive challenge event.</li>
+      <li>Attended <strong>Machine Learning workshops</strong> — hands-on sessions on ML algorithms, model training and real-world AI applications.</li>
+      <li>Attended <strong>n8n Automation workshops</strong> — built no-code workflow automations with API integrations and scheduled pipelines.</li>
+      <li>Active member of <strong>National Service Scheme (NSS)</strong> at GEHU.</li>
+      <li>Completed multiple online certifications in Python, Web Development, and Cloud Computing.</li>
+      <li>Built and deployed 3+ full-stack projects independently.</li>
+      <li>Consistent performer in college-level coding contests and algorithm challenges.</li>
+      <li>Contributed to open-source repositories on GitHub.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- CERTIFICATIONS SECTION -->
+<section class="content-section" id="certifications">
+  <div class="section-header">
+    <h2 class="section-title"><span class="dot-orange">●</span> Certifications</h2>
+    <span class="section-sub">Verified credentials from top platforms</span>
+  </div>
+  <div class="cert-grid">
+
+    <!-- Meta Front-End -->
+    <div class="cert-card-v2">
+      <div class="cert-v2-top meta-grad">
+        <div class="cert-v2-logo">
+          <img src="https://cdn.simpleicons.org/meta/white" width="30" height="30" alt="Meta">
+        </div>
+        <div class="cert-v2-ribbon">VERIFIED</div>
+      </div>
+      <div class="cert-v2-body">
+        <span class="cert-v2-issuer">Meta</span>
+        <p class="cert-v2-name">Front-End Developer Professional Certificate</p>
+        <div class="cert-v2-footer">
+          <span class="cert-v2-badge meta-badge">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            Coursera
+          </span>
+          <a href="#" target="_blank" class="cert-v2-link">View <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Meta Back-End -->
+    <div class="cert-card-v2">
+      <div class="cert-v2-top meta-grad">
+        <div class="cert-v2-logo">
+          <img src="https://cdn.simpleicons.org/meta/white" width="30" height="30" alt="Meta">
+        </div>
+        <div class="cert-v2-ribbon">VERIFIED</div>
+      </div>
+      <div class="cert-v2-body">
+        <span class="cert-v2-issuer">Meta</span>
+        <p class="cert-v2-name">Back-End Developer Professional Certificate</p>
+        <div class="cert-v2-footer">
+          <span class="cert-v2-badge meta-badge">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            Coursera
+          </span>
+          <a href="#" target="_blank" class="cert-v2-link">View <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Claude / Anthropic -->
+    <div class="cert-card-v2">
+      <div class="cert-v2-top claude-grad">
+        <div class="cert-v2-logo">
+          <img src="https://cdn.simpleicons.org/anthropic/white" width="30" height="30" alt="Anthropic">
+        </div>
+        <div class="cert-v2-ribbon">VERIFIED</div>
+      </div>
+      <div class="cert-v2-body">
+        <span class="cert-v2-issuer">Anthropic / Claude AI</span>
+        <p class="cert-v2-name">AI &amp; Prompt Engineering Fundamentals</p>
+        <div class="cert-v2-footer">
+          <span class="cert-v2-badge claude-badge">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            Anthropic
+          </span>
+          <a href="#" target="_blank" class="cert-v2-link">View <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
+        </div>
+      </div>
+    </div>
+
+    <!-- HackerRank Problem Solving -->
+    <div class="cert-card-v2">
+      <div class="cert-v2-top hr-grad">
+        <div class="cert-v2-logo">
+          <img src="https://cdn.simpleicons.org/hackerrank/white" width="30" height="30" alt="HackerRank">
+        </div>
+        <div class="cert-v2-ribbon">VERIFIED</div>
+      </div>
+      <div class="cert-v2-body">
+        <span class="cert-v2-issuer">HackerRank</span>
+        <p class="cert-v2-name">Problem Solving (Intermediate)</p>
+        <div class="cert-v2-footer">
+          <span class="cert-v2-badge hr-badge">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            HackerRank
+          </span>
+          <a href="#" target="_blank" class="cert-v2-link">View <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
+        </div>
+      </div>
+    </div>
+
+    <!-- HackerRank Python -->
+    <div class="cert-card-v2">
+      <div class="cert-v2-top hr-grad">
+        <div class="cert-v2-logo">
+          <img src="https://cdn.simpleicons.org/hackerrank/white" width="30" height="30" alt="HackerRank">
+        </div>
+        <div class="cert-v2-ribbon">VERIFIED</div>
+      </div>
+      <div class="cert-v2-body">
+        <span class="cert-v2-issuer">HackerRank</span>
+        <p class="cert-v2-name">Python (Basic) Certificate</p>
+        <div class="cert-v2-footer">
+          <span class="cert-v2-badge hr-badge">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            HackerRank
+          </span>
+          <a href="#" target="_blank" class="cert-v2-link">View <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
+        </div>
+      </div>
+    </div>
+
+    <!-- HackerRank JavaScript -->
+    <div class="cert-card-v2">
+      <div class="cert-v2-top hr-grad">
+        <div class="cert-v2-logo">
+          <img src="https://cdn.simpleicons.org/hackerrank/white" width="30" height="30" alt="HackerRank">
+        </div>
+        <div class="cert-v2-ribbon">VERIFIED</div>
+      </div>
+      <div class="cert-v2-body">
+        <span class="cert-v2-issuer">HackerRank</span>
+        <p class="cert-v2-name">JavaScript (Basic) Certificate</p>
+        <div class="cert-v2-footer">
+          <span class="cert-v2-badge hr-badge">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            HackerRank
+          </span>
+          <a href="#" target="_blank" class="cert-v2-link">View <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- OPEN SOURCE SECTION -->
+<section class="content-section" id="opensource">
+  <div class="section-header">
+    <h2 class="section-title"><span class="dot-orange">●</span> Open Source &amp; Extensions</h2>
+    <span class="section-sub">Published tools &amp; community contributions</span>
+  </div>
+  <div class="two-col-grid">
+
+    <!-- STL Lens VS Code Extension -->
+    <div class="card os-featured-card">
+      <div class="os-card-header">
+        <div class="os-icon vscode-icon-bg">
+          <svg width="28" height="28" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M74.9 4.9L51.4 26.2 32.6 10.6 4.9 21.9v56.2l27.7 11.3 18.8-15.6 23.5 21.3L95.1 85V15L74.9 4.9zm0 67.5L55.4 50l19.5-22.4v44.8zM10.1 73.3V26.7l17.5-7.1v60.8l-17.5-7.1z" fill="white"/>
+          </svg>
+        </div>
+        <div>
+          <p class="os-platform">VS Code Marketplace</p>
+          <h3 class="os-title">STL Lens</h3>
+        </div>
+        <a href="https://marketplace.visualstudio.com/items?itemName=rahulsingh.stl-lens" target="_blank" class="os-ext-link">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          View on Marketplace
+        </a>
+      </div>
+      <p class="os-desc">A VS Code extension that provides inline STL (Standard Template Library) documentation, hover hints, and quick-reference for C++ developers — making STL usage faster and more intuitive directly in the editor.</p>
+      <div class="os-tags">
+        <span class="tag-outline">VS Code Extension</span>
+        <span class="tag-outline">C++ / STL</span>
+        <span class="tag-outline">Developer Tool</span>
+        <span class="tag-outline">TypeScript</span>
+      </div>
+      <div class="os-stats">
+        <span class="os-stat"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> Published</span>
+        <span class="os-stat"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg> Open Source</span>
+      </div>
+    </div>
+
+    <!-- GitHub Open Source Contributions -->
+    <div class="card">
+      <p class="card-heading">Open Source Contributions</p>
+      <ul class="os-contrib-list">
+        <li class="os-contrib-item">
+          <div class="os-contrib-dot"></div>
+          <div>
+            <p class="os-contrib-title">STL Lens — VS Code Extension</p>
+            <p class="os-contrib-desc">Author &amp; maintainer. Published on VS Code Marketplace.</p>
+            <div class="os-contrib-tags"><span class="tag-outline">Author</span><span class="tag-outline">TypeScript</span></div>
+          </div>
+        </li>
+        <li class="os-contrib-item">
+          <div class="os-contrib-dot"></div>
+          <div>
+            <p class="os-contrib-title">GitHub Repositories</p>
+            <p class="os-contrib-desc">Multiple public repos covering DSA, web projects, and automation scripts.</p>
+            <div class="os-contrib-tags"><span class="tag-outline">JavaScript</span><span class="tag-outline">Python</span><span class="tag-outline">C++</span></div>
+          </div>
+        </li>
+        <li class="os-contrib-item">
+          <div class="os-contrib-dot"></div>
+          <div>
+            <p class="os-contrib-title">Community Contributions</p>
+            <p class="os-contrib-desc">Bug fixes, documentation improvements, and issue reporting on open-source projects.</p>
+            <div class="os-contrib-tags"><span class="tag-outline">Pull Requests</span><span class="tag-outline">Issues</span></div>
+          </div>
+        </li>
+      </ul>
+      <a href="https://github.com/" target="_blank" class="btn-secondary" style="margin-top:20px;display:inline-flex;align-items:center;gap:8px;font-size:13px;padding:8px 18px">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+        View GitHub Profile
+      </a>
+    </div>
+
+  </div>
+</section>
+
+<!-- CODING PROFILES SECTION -->
+<section class="content-section" id="coding">
+  <div class="section-header">
+    <h2 class="section-title"><span class="dot-orange">●</span> Coding Profiles</h2>
+    <span class="section-sub">DSA practice &amp; competitive programming</span>
+  </div>
+
+  <div class="coding-profiles-grid">
+
+    <!-- LeetCode -->
+    <a href="https://leetcode.com/" target="_blank" class="cp-card lc-card">
+      <div class="cp-top lc-top">
+        <div class="cp-logo-box">
+          <svg viewBox="0 0 24 24" width="26" height="26" xmlns="http://www.w3.org/2000/svg">
+            <path fill="#fff" d="M13.483 0a1.374 1.374 0 0 0-.961.438L7.116 6.226l-3.854 4.126a5.266 5.266 0 0 0-1.209 2.104 5.35 5.35 0 0 0-.125.513 5.527 5.527 0 0 0 .062 2.362 5.83 5.83 0 0 0 .349 1.017 5.938 5.938 0 0 0 1.271 1.818l4.277 4.193.039.038c2.248 2.165 5.852 2.133 8.063-.074l2.396-2.392c.54-.54.54-1.414.003-1.955a1.378 1.378 0 0 0-1.951-.003l-2.396 2.392a3.021 3.021 0 0 1-4.205.038l-.02-.019-4.276-4.193c-.652-.64-.972-1.469-.948-2.263a2.68 2.68 0 0 1 .066-.523 2.545 2.545 0 0 1 .619-1.164L9.13 8.114c1.058-1.134 3.204-1.27 4.43-.278l3.501 2.831c.593.48 1.461.387 1.94-.207a1.384 1.384 0 0 0-.207-1.943l-3.5-2.831c-.8-.647-1.766-1.045-2.774-1.202l2.015-2.158A1.384 1.384 0 0 0 13.483 0zm-2.866 12.815a1.38 1.38 0 0 0-1.38 1.382 1.38 1.38 0 0 0 1.38 1.382H20.79a1.38 1.38 0 0 0 1.38-1.382 1.38 1.38 0 0 0-1.38-1.382z"/>
+          </svg>
+        </div>
+        <div class="cp-top-text">
+          <span class="cp-name">LeetCode</span>
+          <span class="cp-handle">@rahulsingh</span>
+        </div>
+        <span class="cp-ribbon">DSA</span>
+      </div>
+      <div class="cp-body">
+        <div class="cp-stats-row">
+          <div class="cp-stat">
+            <span class="cp-stat-val">100+</span>
+            <span class="cp-stat-lbl">Solved</span>
+          </div>
+          <div class="cp-stat cp-easy">
+            <span class="cp-stat-val">60+</span>
+            <span class="cp-stat-lbl">Easy</span>
+          </div>
+          <div class="cp-stat cp-med">
+            <span class="cp-stat-val">35+</span>
+            <span class="cp-stat-lbl">Medium</span>
+          </div>
+          <div class="cp-stat cp-hard">
+            <span class="cp-stat-val">5+</span>
+            <span class="cp-stat-lbl">Hard</span>
+          </div>
+        </div>
+        <div class="cp-footer">
+          <span class="cp-tag">Algorithms</span>
+          <span class="cp-tag">Problem Solving</span>
+          <span class="cp-visit-link">Visit Profile <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+        </div>
+      </div>
+    </a>
+
+    <!-- GeeksForGeeks -->
+    <a href="https://www.geeksforgeeks.org/" target="_blank" class="cp-card gfg-card">
+      <div class="cp-top gfg-top">
+        <div class="cp-logo-box">
+          <svg viewBox="0 0 24 24" width="28" height="28" xmlns="http://www.w3.org/2000/svg">
+            <path fill="#fff" d="M21.45 14.315c-.143.28-.334.532-.565.745a3.691 3.691 0 0 1-1.104.695 4.51 4.51 0 0 1-3.116-.016 3.79 3.79 0 0 1-1.106-.705 3.538 3.538 0 0 1-.57-.77h-.002a3.594 3.594 0 0 1-.568.77 3.79 3.79 0 0 1-1.106.705 4.51 4.51 0 0 1-3.116.016 3.691 3.691 0 0 1-1.104-.695 3.43 3.43 0 0 1-.565-.745A3.33 3.33 0 0 1 8.4 13H0v-2h8.4a3.33 3.33 0 0 1 .128-1.315c.143-.28.334-.532.565-.745a3.691 3.691 0 0 1 1.104-.695 4.51 4.51 0 0 1 3.116.016 3.79 3.79 0 0 1 1.106.705c.217.224.41.476.568.77h.002c.158-.294.351-.546.568-.77a3.79 3.79 0 0 1 1.106-.705 4.51 4.51 0 0 1 3.116-.016c.41.16.78.392 1.104.695.231.213.422.465.565.745A3.33 3.33 0 0 1 21.6 11H24v2h-2.4a3.33 3.33 0 0 1-.15 1.315z"/>
+          </svg>
+        </div>
+        <div class="cp-top-text">
+          <span class="cp-name">GeeksForGeeks</span>
+          <span class="cp-handle">@rahulsingh</span>
+        </div>
+        <span class="cp-ribbon">DSA</span>
+      </div>
+      <div class="cp-body">
+        <div class="cp-stats-row">
+          <div class="cp-stat">
+            <span class="cp-stat-val">50+</span>
+            <span class="cp-stat-lbl">Problems</span>
+          </div>
+          <div class="cp-stat">
+            <span class="cp-stat-val">DSA</span>
+            <span class="cp-stat-lbl">Track</span>
+          </div>
+          <div class="cp-stat">
+            <span class="cp-stat-val">Active</span>
+            <span class="cp-stat-lbl">Streak</span>
+          </div>
+        </div>
+        <div class="cp-footer">
+          <span class="cp-tag">Data Structures</span>
+          <span class="cp-tag">Algorithms</span>
+          <span class="cp-visit-link">Visit Profile <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+        </div>
+      </div>
+    </a>
+
+    <!-- GitHub -->
+    <a href="https://github.com/" target="_blank" class="cp-card gh-card">
+      <div class="cp-top gh-top">
+        <div class="cp-logo-box">
+          <svg viewBox="0 0 24 24" width="26" height="26" xmlns="http://www.w3.org/2000/svg">
+            <path fill="#fff" d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/>
+          </svg>
+        </div>
+        <div class="cp-top-text">
+          <span class="cp-name">GitHub</span>
+          <span class="cp-handle">@rahulsingh</span>
+        </div>
+        <span class="cp-ribbon">Open Source</span>
+      </div>
+      <div class="cp-body">
+        <div class="cp-stats-row">
+          <div class="cp-stat">
+            <span class="cp-stat-val">10+</span>
+            <span class="cp-stat-lbl">Repos</span>
+          </div>
+          <div class="cp-stat">
+            <span class="cp-stat-val">3+</span>
+            <span class="cp-stat-lbl">Projects</span>
+          </div>
+          <div class="cp-stat">
+            <span class="cp-stat-val">1</span>
+            <span class="cp-stat-lbl">Extension</span>
+          </div>
+        </div>
+        <div class="cp-footer">
+          <span class="cp-tag">Web Dev</span>
+          <span class="cp-tag">C++ / Python</span>
+          <span class="cp-visit-link">Visit Profile <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+        </div>
+      </div>
+    </a>
+
+    <!-- HackerRank -->
+    <a href="https://www.hackerrank.com/" target="_blank" class="cp-card hrk-card">
+      <div class="cp-top hrk-top">
+        <div class="cp-logo-box">
+          <svg viewBox="0 0 24 24" width="26" height="26" xmlns="http://www.w3.org/2000/svg">
+            <path fill="#fff" d="M12 0c1.285 0 9.75 4.886 10.392 6s.645 10.887 0 12-9.107 6-10.392 6-9.75-4.886-10.392-6C.96 16.887.96 7.113 1.608 6 2.25 4.886 10.715 0 12 0zm2.295 6.799c-.141 0-.258.115-.258.258v3.875H9.963V7.057a.258.258 0 0 0-.258-.258h-1.9a.258.258 0 0 0-.258.258v9.886c0 .143.115.258.258.258h1.9a.258.258 0 0 0 .258-.258v-3.875h4.074v3.875c0 .143.115.258.258.258h1.9a.258.258 0 0 0 .258-.258V7.057a.258.258 0 0 0-.258-.258z"/>
+          </svg>
+        </div>
+        <div class="cp-top-text">
+          <span class="cp-name">HackerRank</span>
+          <span class="cp-handle">@rahulsingh</span>
+        </div>
+        <span class="cp-ribbon">Gold Badge</span>
+      </div>
+      <div class="cp-body">
+        <div class="cp-stats-row">
+          <div class="cp-stat">
+            <span class="cp-stat-val">3</span>
+            <span class="cp-stat-lbl">Certs</span>
+          </div>
+          <div class="cp-stat">
+            <span class="cp-stat-val">5★</span>
+            <span class="cp-stat-lbl">Python</span>
+          </div>
+          <div class="cp-stat">
+            <span class="cp-stat-val">Gold</span>
+            <span class="cp-stat-lbl">Badge</span>
+          </div>
+        </div>
+        <div class="cp-footer">
+          <span class="cp-tag">Problem Solving</span>
+          <span class="cp-tag">Python</span>
+          <span class="cp-visit-link">Visit Profile <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+        </div>
+      </div>
+    </a>
+
+  </div>
+</section>
+
+<!-- EVENTS SECTION -->
+<section class="content-section" id="events">
+  <div class="section-header">
+    <h2 class="section-title"><span class="dot-orange">●</span> Events</h2>
+    <span class="section-sub">Hackathons, campus life &amp; activities</span>
+  </div>
+  <!-- Filter tabs -->
+  <div class="events-filter">
+    <button class="ev-filter active" data-filter="all">All</button>
+    <button class="ev-filter" data-filter="Hackathon">Hackathon</button>
+    <button class="ev-filter" data-filter="Campus">Campus</button>
+    <button class="ev-filter" data-filter="Activity">Activity</button>
+    <button class="ev-filter" data-filter="Personal">Personal</button>
+  </div>
+  <div class="gallery-grid" id="eventsGrid">
+    <div class="gallery-card" data-category="Campus">
+      <div class="gallery-img-wrap">
+        <img src="assets/images/event-college-2026.jpg" alt="College Event 2026" loading="lazy">
+        <div class="gallery-overlay"><span>View</span></div>
+      </div>
+      <div class="gallery-info">
+        <span class="gallery-tag">Campus</span>
+        <p class="gallery-title">College Event 2026</p>
+        <time>February 2026</time>
+      </div>
+    </div>
+    <div class="gallery-card" data-category="Activity">
+      <div class="gallery-img-wrap">
+        <img src="assets/images/event-nss-activity.jpg" alt="NSS Activity" loading="lazy">
+        <div class="gallery-overlay"><span>View</span></div>
+      </div>
+      <div class="gallery-info">
+        <span class="gallery-tag">Activity</span>
+        <p class="gallery-title">NSS Activity</p>
+        <time>February 2026</time>
+      </div>
+    </div>
+    <div class="gallery-card" data-category="Hackathon">
+      <div class="gallery-img-wrap">
+        <img src="assets/images/event-coding-hackathon.jpg" alt="Coding Event" loading="lazy">
+        <div class="gallery-overlay"><span>View</span></div>
+      </div>
+      <div class="gallery-info">
+        <span class="gallery-tag">Hackathon</span>
+        <p class="gallery-title">Coding Event</p>
+        <time>February 2026</time>
+      </div>
+    </div>
+    <div class="gallery-card" data-category="Personal">
+      <div class="gallery-img-wrap">
+        <img src="assets/mines/event-jan-1.jpeg" alt="January 2026" loading="lazy">
+        <div class="gallery-overlay"><span>View</span></div>
+      </div>
+      <div class="gallery-info">
+        <span class="gallery-tag">Personal</span>
+        <p class="gallery-title">January 2026</p>
+        <time>January 2026</time>
+      </div>
+    </div>
+    <div class="gallery-card" data-category="Personal">
+      <div class="gallery-img-wrap">
+        <img src="assets/mines/event-jan-2.jpeg" alt="January 2026" loading="lazy">
+        <div class="gallery-overlay"><span>View</span></div>
+      </div>
+      <div class="gallery-info">
+        <span class="gallery-tag">Personal</span>
+        <p class="gallery-title">January 2026</p>
+        <time>January 2026</time>
+      </div>
+    </div>
+    <div class="gallery-card" data-category="Personal">
+      <div class="gallery-img-wrap">
+        <img src="assets/mines/event-jan-3.jpeg" alt="January 2026" loading="lazy">
+        <div class="gallery-overlay"><span>View</span></div>
+      </div>
+      <div class="gallery-info">
+        <span class="gallery-tag">Personal</span>
+        <p class="gallery-title">January 2026</p>
+        <time>January 2026</time>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox">
+  <button class="lightbox-close" id="lightboxClose" aria-label="Close">&times;</button>
+  <button class="lightbox-prev" id="lightboxPrev" aria-label="Previous">&#8249;</button>
+  <button class="lightbox-next" id="lightboxNext" aria-label="Next">&#8250;</button>
+  <div class="lightbox-inner">
+    <img src="" alt="" id="lightboxImg">
+    <p class="lightbox-caption" id="lightboxCaption"></p>
+  </div>
+</div>
+
+<!-- QR SECTION -->
+<section class="content-section" id="quick-access">
+  <div class="section-header">
+    <h2 class="section-title"><span class="dot-orange">●</span> Quick Access</h2>
+    <span class="section-sub">Scan to open this portfolio on your phone</span>
+  </div>
+  <div class="card qr-card" style="max-width:420px">
+    <p class="card-heading">Scan QR Code</p>
+    <p style="font-size:13px;color:var(--text-light);margin-bottom:16px">Point your phone camera at this code to open my portfolio directly.</p>
+    <div class="qr-wrap">
+      <div id="qrCode" class="qr-box"></div>
+      <div class="qr-meta">
+        <p class="qr-url" id="qrUrl"></p>
+        <button class="qr-download-btn" id="qrDownload" title="Download QR Code">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Download QR
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT SECTION -->
+<section class="content-section" id="contact">
+  <div class="section-header">
+    <h2 class="section-title"><span class="dot-orange">●</span> Contact</h2>
+    <span class="section-sub">Professional correspondence &amp; collaborations</span>
+  </div>
+  <div class="two-col-grid">
+
+    <!-- Contact info -->
+    <div class="card contact-info-card">
+      <div class="contact-row">
+        <span class="contact-icon">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        </span>
+        <div>
+          <p class="contact-lbl">Email</p>
+          <p class="contact-txt">rahulsinghchand88@gmail.com</p>
+        </div>
+      </div>
+      <div class="contact-row">
+        <span class="contact-icon">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.4 2 2 0 0 1 3.6 1.22h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.96a16 16 0 0 0 6 6l.96-.96a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.73 16.92z"/></svg>
+        </span>
+        <div>
+          <p class="contact-lbl">Phone</p>
+          <p class="contact-txt">+91 XXXXX XXXXX</p>
+        </div>
+      </div>
+      <div class="contact-row">
+        <span class="contact-icon">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        </span>
+        <div>
+          <p class="contact-lbl">Location</p>
+          <p class="contact-txt">Graphic Era Hill University, Dehradun<br>Uttarakhand, India</p>
+        </div>
+      </div>
+      <div class="contact-row">
+        <span class="contact-icon">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+        </span>
+        <div>
+          <p class="contact-lbl">GitHub</p>
+          <p class="contact-txt">github.com/rahulsingh</p>
+        </div>
+      </div>
+      <div class="contact-row">
+        <span class="contact-icon">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+        </span>
+        <div>
+          <p class="contact-lbl">LinkedIn</p>
+          <p class="contact-txt">linkedin.com/in/rahulsingh</p>
+        </div>
+      </div>
+      <p class="contact-note">
+        Open to <strong>internship opportunities, project collaborations</strong> and joint projects in Web Development &amp; related domains.
+      </p>
+    </div>
+
+    <!-- Contact form -->
+    <div class="card">
+      <p class="card-heading" style="margin-bottom:14px">Send a Message</p>
+      <form class="contact-form" id="contactForm" novalidate>
+        <div class="form-group">
+          <label for="cf-name">Name</label>
+          <input type="text" id="cf-name" name="name" placeholder="Your name" required autocomplete="name">
+          <span class="form-error" id="err-name"></span>
+        </div>
+        <div class="form-group">
+          <label for="cf-email">Email</label>
+          <input type="email" id="cf-email" name="email" placeholder="your@email.com" required autocomplete="email">
+          <span class="form-error" id="err-email"></span>
+        </div>
+        <div class="form-group">
+          <label for="cf-subject">Subject</label>
+          <input type="text" id="cf-subject" name="subject" placeholder="Collaboration / Internship / Query" required>
+          <span class="form-error" id="err-subject"></span>
+        </div>
+        <div class="form-group">
+          <label for="cf-message">Message</label>
+          <textarea id="cf-message" name="message" rows="4" placeholder="Write your message here..." required></textarea>
+          <span class="form-error" id="err-message"></span>
+        </div>
+        <button type="submit" class="btn-primary btn-full" id="cfSubmit">
+          <span class="btn-text">Send Message</span>
+          <span class="btn-loader" style="display:none">Sending…</span>
+        </button>
+        <div class="form-success" id="formSuccess" style="display:none">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+          Message sent! I'll get back to you soon.
+        </div>
+      </form>
+    </div>
+
+  </div>
+</section>
+
+</main>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <span>© 2026 Rahul Singh. All rights reserved.</span>
+  <span>Designed for clarity, visibility &amp; professional outreach.</span>
+  <span class="footer-visits">Visits: <strong id="visitCount">0</strong></span>
+</footer>
+
+<!-- SCROLL TO TOP -->
+<button class="scroll-top" id="scrollTop" aria-label="Scroll to top">↑</button>
+
+<script src="./assets/js/script.js"></script>
+</body>
+</html>
