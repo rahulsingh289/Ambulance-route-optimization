@@ -88,10 +88,6 @@ SOURCES=(
   "$ROOT/backend/modules/route-optimization/algorithms/Graph.java"
   "$ROOT/backend/modules/route-optimization/algorithms/Dijkstra.java"
   "$ROOT/backend/modules/route-optimization/algorithms/MapFactory.java"
-  "$ROOT/backend/modules/route-optimization/algorithms/DijkstraAlgorithm.java"
-  "$ROOT/backend/modules/route-optimization/algorithms/AStarAlgorithm.java"
-  "$ROOT/backend/modules/route-optimization/RouteOptimizationController.java"
-  "$ROOT/backend/modules/route-optimization/AmbulanceGraph.java"
 
   # Main server
   "$ROOT/backend/MainServer.java"

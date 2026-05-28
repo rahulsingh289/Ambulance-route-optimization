@@ -1,114 +1,326 @@
-// Graph.java
-// Core graph data structure using adjacency list representation
-// Handles both Section 1 (delivery map) and Section 2 (transport/depot map)
-
 package mdvrp;
 
 import java.util.*;
 
 public class Graph {
 
-    // ── Node types ────────────────────────────────────────────────────────────
+    /* ═══════════════════════════════════════════════
+       NODE TYPES
+    ═══════════════════════════════════════════════ */
+
     public enum NodeType {
-        HOUSE, SHOP, SCHOOL, HOSPITAL, GYM, DEPOT, CITY
+
+        HOSPITAL,
+        PATIENT,
+        AMBULANCE_STATION,
+        EMERGENCY,
+        TRAFFIC
     }
 
-    // ── Node: holds id, label, type, coordinates ──────────────────────────────
+    /* ═══════════════════════════════════════════════
+       NODE
+    ═══════════════════════════════════════════════ */
+
     public static class Node {
-        public final int    id;
-        public final String label;
-        public final NodeType type;
-        public final double x, y;   // canvas coordinates
 
-        public Node(int id, String label, NodeType type, double x, double y) {
-            this.id    = id;
+        public int id;
+
+        public String label;
+
+        public NodeType type;
+
+        public int x;
+
+        public int y;
+
+        public Node(
+                int id,
+                String label,
+                NodeType type,
+                int x,
+                int y
+        ) {
+
+            this.id = id;
+
             this.label = label;
-            this.type  = type;
-            this.x     = x;
-            this.y     = y;
-        }
 
-        public String toJson() {
-            return String.format(
-                "{\"id\":%d,\"label\":\"%s\",\"type\":\"%s\",\"x\":%.1f,\"y\":%.1f}",
-                id, label, type.name().toLowerCase(), x, y
-            );
+            this.type = type;
+
+            this.x = x;
+
+            this.y = y;
         }
     }
 
-    // ── Edge: weighted, undirected ────────────────────────────────────────────
+    /* ═══════════════════════════════════════════════
+       EDGE
+    ═══════════════════════════════════════════════ */
+
     public static class Edge {
-        public final int    to;
-        public final double weight;
 
-        public Edge(int to, double weight) {
-            this.to     = to;
+        public int from;
+
+        public int to;
+
+        public double weight;
+
+        public int trafficLevel;
+
+        public boolean emergencyRoute;
+
+        public boolean badRoad;
+
+        public Edge(
+                int from,
+                int to,
+                double weight,
+                int trafficLevel,
+                boolean emergencyRoute,
+                boolean badRoad
+        ) {
+
+            this.from = from;
+
+            this.to = to;
+
             this.weight = weight;
+
+            this.trafficLevel = trafficLevel;
+
+            this.emergencyRoute =
+                    emergencyRoute;
+
+            this.badRoad = badRoad;
         }
     }
 
-    // ── Graph fields ──────────────────────────────────────────────────────────
-    private final Map<Integer, Node>        nodes = new LinkedHashMap<>();
-    private final Map<Integer, List<Edge>>  adj   = new HashMap<>();
+    /* ═══════════════════════════════════════════════
+       STORAGE
+    ═══════════════════════════════════════════════ */
 
-    // ── Add node ──────────────────────────────────────────────────────────────
-    public void addNode(Node n) {
-        nodes.put(n.id, n);
-        adj.putIfAbsent(n.id, new ArrayList<>());
+    private final Map<Integer, Node> nodes =
+            new HashMap<>();
+
+    private final Map<Integer, List<Edge>> adj =
+            new HashMap<>();
+
+    private final List<Edge> edges =
+            new ArrayList<>();
+
+    /* ═══════════════════════════════════════════════
+       ADD NODE
+    ═══════════════════════════════════════════════ */
+
+    public void addNode(Node node) {
+
+        nodes.put(node.id, node);
+
+        adj.putIfAbsent(
+                node.id,
+                new ArrayList<>()
+        );
     }
 
-    // ── Add undirected weighted edge ──────────────────────────────────────────
-    public void addEdge(int u, int v, double weight) {
-        adj.get(u).add(new Edge(v, weight));
-        adj.get(v).add(new Edge(u, weight));
+    /* ═══════════════════════════════════════════════
+       ADD EDGE
+    ═══════════════════════════════════════════════ */
+
+    public void addEdge(
+            int from,
+            int to,
+            double weight,
+            int trafficLevel,
+            boolean emergencyRoute,
+            boolean badRoad
+    ) {
+
+        Edge edge =
+                new Edge(
+                        from,
+                        to,
+                        weight,
+                        trafficLevel,
+                        emergencyRoute,
+                        badRoad
+                );
+
+        edges.add(edge);
+
+        adj.putIfAbsent(
+                from,
+                new ArrayList<>()
+        );
+
+        adj.putIfAbsent(
+                to,
+                new ArrayList<>()
+        );
+
+        adj.get(from).add(edge);
+
+        /* Undirected graph */
+
+        adj.get(to).add(
+
+                new Edge(
+                        to,
+                        from,
+                        weight,
+                        trafficLevel,
+                        emergencyRoute,
+                        badRoad
+                )
+        );
     }
 
-    // ── Getters ───────────────────────────────────────────────────────────────
-    public Map<Integer, Node>       getNodes() { return nodes; }
-    public Map<Integer, List<Edge>> getAdj()   { return adj;   }
-    public Node                     getNode(int id) { return nodes.get(id); }
-    public boolean                  hasNode(int id) { return nodes.containsKey(id); }
+    /* ═══════════════════════════════════════════════
+       GETTERS
+    ═══════════════════════════════════════════════ */
 
-    // ── Export nodes list as JSON array ───────────────────────────────────────
-    public String nodesToJson() {
-        StringBuilder sb = new StringBuilder("[");
-        boolean first = true;
-        for (Node n : nodes.values()) {
-            if (!first) sb.append(",");
-            sb.append(n.toJson());
-            first = false;
-        }
-        sb.append("]");
-        return sb.toString();
+    public Map<Integer, Node> getNodes() {
+
+        return nodes;
     }
 
-    // ── Export edges as JSON array ────────────────────────────────────────────
-    public String edgesToJson() {
-        Set<String> seen = new HashSet<>();
-        StringBuilder sb = new StringBuilder("[");
-        boolean first = true;
-        for (Map.Entry<Integer, List<Edge>> entry : adj.entrySet()) {
-            int from = entry.getKey();
-            for (Edge e : entry.getValue()) {
-                // Avoid duplicates for undirected edges
-                String key = Math.min(from, e.to) + "-" + Math.max(from, e.to);
-                if (seen.add(key)) {
-                    if (!first) sb.append(",");
-                    sb.append(String.format(
-                        "{\"from\":%d,\"to\":%d,\"weight\":%.1f}",
-                        from, e.to, e.weight
-                    ));
-                    first = false;
-                }
+    public Map<Integer, List<Edge>> getAdj() {
+
+        return adj;
+    }
+
+    public List<Edge> getEdges() {
+
+        return edges;
+    }
+
+    /* ═══════════════════════════════════════════════
+       BAD ROAD DETECTION
+    ═══════════════════════════════════════════════ */
+
+    public void detectBadRoads() {
+
+        for (Edge e : edges) {
+
+            if (e.weight > 180) {
+
+                e.badRoad = true;
             }
         }
-        sb.append("]");
-        return sb.toString();
     }
 
-    // ── Euclidean distance helper ─────────────────────────────────────────────
-    public static double euclidean(Node a, Node b) {
-        double dx = a.x - b.x, dy = a.y - b.y;
-        return Math.round(Math.sqrt(dx * dx + dy * dy) * 10.0) / 10.0;
+    /* ═══════════════════════════════════════════════
+       EUCLIDEAN DISTANCE
+    ═══════════════════════════════════════════════ */
+
+    public static double euclidean(
+            Node a,
+            Node b
+    ) {
+
+        double dx = a.x - b.x;
+
+        double dy = a.y - b.y;
+
+        return Math.sqrt(
+                dx * dx + dy * dy
+        );
+    }
+
+    /* ═══════════════════════════════════════════════
+       TO JSON
+    ═══════════════════════════════════════════════ */
+
+    public String toJson() {
+
+        StringBuilder sb =
+                new StringBuilder();
+
+        sb.append("{");
+
+        /* Nodes */
+
+        sb.append("\"nodes\":[");
+
+        int count = 0;
+
+        for (Node n : nodes.values()) {
+
+            if (count++ > 0)
+                sb.append(",");
+
+            sb.append("{");
+
+            sb.append("\"id\":")
+                    .append(n.id)
+                    .append(",");
+
+            sb.append("\"label\":\"")
+                    .append(n.label)
+                    .append("\",");
+
+            sb.append("\"type\":\"")
+                    .append(
+                            n.type
+                                    .name()
+                                    .toLowerCase()
+                    )
+                    .append("\",");
+
+            sb.append("\"x\":")
+                    .append(n.x)
+                    .append(",");
+
+            sb.append("\"y\":")
+                    .append(n.y);
+
+            sb.append("}");
+        }
+
+        sb.append("],");
+
+        /* Edges */
+
+        sb.append("\"edges\":[");
+
+        for (int i = 0; i < edges.size(); i++) {
+
+            Edge e = edges.get(i);
+
+            if (i > 0)
+                sb.append(",");
+
+            sb.append("{");
+
+            sb.append("\"from\":")
+                    .append(e.from)
+                    .append(",");
+
+            sb.append("\"to\":")
+                    .append(e.to)
+                    .append(",");
+
+            sb.append("\"weight\":")
+                    .append(e.weight)
+                    .append(",");
+
+            sb.append("\"trafficLevel\":")
+                    .append(e.trafficLevel)
+                    .append(",");
+
+            sb.append("\"emergencyRoute\":")
+                    .append(e.emergencyRoute)
+                    .append(",");
+
+            sb.append("\"badRoad\":")
+                    .append(e.badRoad);
+
+            sb.append("}");
+        }
+
+        sb.append("]");
+
+        sb.append("}");
+
+        return sb.toString();
     }
 }

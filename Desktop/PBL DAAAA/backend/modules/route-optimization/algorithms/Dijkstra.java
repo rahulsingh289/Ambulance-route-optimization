@@ -1,165 +1,366 @@
-// Dijkstra.java
-// Dijkstra's shortest path algorithm using a Priority Queue (Min-Heap)
-// Returns: shortest distances + predecessor map for path reconstruction
-
 package mdvrp;
 
 import java.util.*;
 
 public class Dijkstra {
 
-    // ── Result object returned by dijkstra() ──────────────────────────────────
-    public static class Result {
-        public final Map<Integer, Double>  dist;   // node → shortest distance from source
-        public final Map<Integer, Integer> prev;   // node → predecessor on shortest path
+    // ─────────────────────────────────────────────────────────────────────────
+    // Result object for shortest path
+    // ─────────────────────────────────────────────────────────────────────────
 
-        Result(Map<Integer, Double> dist, Map<Integer, Integer> prev) {
+    public static class Result {
+
+        public final Map<Integer, Double> dist;
+        public final Map<Integer, Integer> prev;
+
+        Result(Map<Integer, Double> dist,
+               Map<Integer, Integer> prev) {
+
             this.dist = dist;
             this.prev = prev;
         }
     }
 
-    // ── Run Dijkstra from a single source ─────────────────────────────────────
+    // ─────────────────────────────────────────────────────────────────────────
+    // DIJKSTRA ALGORITHM
+    // Finds shortest route for ambulance
+    // ─────────────────────────────────────────────────────────────────────────
+
     public static Result dijkstra(Graph graph, int source) {
-        Map<Integer, Double>  dist = new HashMap<>();
+
+        Map<Integer, Double> dist = new HashMap<>();
         Map<Integer, Integer> prev = new HashMap<>();
 
-        // Initialise all distances to infinity
-        for (int id : graph.getNodes().keySet()) {
-            dist.put(id, Double.MAX_VALUE);
-            prev.put(id, -1);
+        // Initialize all distances to infinity
+
+        for (int nodeId : graph.getNodes().keySet()) {
+
+            dist.put(nodeId, Double.MAX_VALUE);
+
+            prev.put(nodeId, -1);
         }
+
         dist.put(source, 0.0);
 
-        // Priority queue: [distance, nodeId]
-        PriorityQueue<double[]> pq = new PriorityQueue<>(
-            Comparator.comparingDouble(a -> a[0])
-        );
+        // Priority Queue
+
+        PriorityQueue<double[]> pq =
+                new PriorityQueue<>(
+                        Comparator.comparingDouble(a -> a[0])
+                );
+
         pq.offer(new double[]{0.0, source});
 
         Set<Integer> visited = new HashSet<>();
 
         while (!pq.isEmpty()) {
-            double[] top  = pq.poll();
-            double   d    = top[0];
-            int      u    = (int) top[1];
 
-            if (visited.contains(u)) continue;
-            visited.add(u);
+            double[] current = pq.poll();
 
-            for (Graph.Edge edge : graph.getAdj().getOrDefault(u, Collections.emptyList())) {
-                int    v    = edge.to;
-                double newD = d + edge.weight;
-                if (newD < dist.getOrDefault(v, Double.MAX_VALUE)) {
-                    dist.put(v, newD);
-                    prev.put(v, u);
-                    pq.offer(new double[]{newD, v});
+            double currentDistance = current[0];
+
+            int currentNode = (int) current[1];
+
+            if (visited.contains(currentNode)) {
+                continue;
+            }
+
+            visited.add(currentNode);
+
+            // Explore neighbors
+
+            for (Graph.Edge edge :
+                    graph.getAdj().getOrDefault(
+                            currentNode,
+                            Collections.emptyList()
+                    )) {
+
+                int nextNode = edge.to;
+
+                // ── Ambulance cost calculation ───────────────────────────
+
+                double trafficPenalty = edge.trafficLevel * 2;
+
+                double roadPenalty = edge.badRoad ? 50 : 0;
+
+                double emergencyBonus =
+                        edge.emergencyRoute ? -5 : 0;
+
+                double totalWeight =
+                        edge.weight
+                                + trafficPenalty
+                                + roadPenalty
+                                + emergencyBonus;
+
+                double newDistance =
+                        currentDistance + totalWeight;
+
+                if (newDistance <
+                        dist.getOrDefault(
+                                nextNode,
+                                Double.MAX_VALUE
+                        )) {
+
+                    dist.put(nextNode, newDistance);
+
+                    prev.put(nextNode, currentNode);
+
+                    pq.offer(
+                            new double[]{
+                                    newDistance,
+                                    nextNode
+                            }
+                    );
                 }
             }
         }
+
         return new Result(dist, prev);
     }
 
-    // ── Reconstruct path from source → target using prev map ─────────────────
-    public static List<Integer> reconstructPath(Map<Integer, Integer> prev,
-                                                int source, int target) {
-        LinkedList<Integer> path = new LinkedList<>();
-        int cur = target;
-        while (cur != -1) {
-            path.addFirst(cur);
-            if (cur == source) break;
-            cur = prev.getOrDefault(cur, -1);
-            // Guard: cycle / unreachable
-            if (path.size() > prev.size() + 2) return Collections.emptyList();
+    // ─────────────────────────────────────────────────────────────────────────
+    // RECONSTRUCT SHORTEST PATH
+    // ─────────────────────────────────────────────────────────────────────────
+
+    public static List<Integer> reconstructPath(
+
+            Map<Integer, Integer> prev,
+            int source,
+            int destination
+    ) {
+
+        LinkedList<Integer> path =
+                new LinkedList<>();
+
+        int current = destination;
+
+        while (current != -1) {
+
+            path.addFirst(current);
+
+            if (current == source) {
+                break;
+            }
+
+            current =
+                    prev.getOrDefault(current, -1);
+
+            // Safety check
+
+            if (path.size() > prev.size() + 2) {
+
+                return Collections.emptyList();
+            }
         }
-        if (path.isEmpty() || path.getFirst() != source) return Collections.emptyList();
+
+        if (path.isEmpty()
+                || path.getFirst() != source) {
+
+            return Collections.emptyList();
+        }
+
         return path;
     }
 
-    // ── Greedy TSP-style route: source → visit all stops → return to source ───
-    // Uses nearest-unvisited-stop heuristic, each leg computed with Dijkstra.
-    public static RouteResult greedyRoute(Graph graph, int source,
-                                          List<Integer> stops) {
-        List<Integer>  visitOrder  = new ArrayList<>();
-        List<Integer>  fullPath    = new ArrayList<>();
-        double         totalDist   = 0.0;
+    // ─────────────────────────────────────────────────────────────────────────
+    // AMBULANCE ROUTE OPTIMIZATION
+    // Hospital → Multiple Patients → Return Hospital
+    // ─────────────────────────────────────────────────────────────────────────
 
-        Set<Integer> remaining = new LinkedHashSet<>(stops);
-        int          current   = source;
-        fullPath.add(source);
+    public static AmbulanceRouteResult optimizeAmbulanceRoute(
 
-        while (!remaining.isEmpty()) {
-            // Run Dijkstra from current position
-            Result result = dijkstra(graph, current);
+            Graph graph,
+            int hospitalNode,
+            List<Integer> patientNodes
+    ) {
 
-            // Find nearest unvisited stop
-            int    nearest  = -1;
-            double bestDist = Double.MAX_VALUE;
-            for (int stop : remaining) {
-                double d = result.dist.getOrDefault(stop, Double.MAX_VALUE);
-                if (d < bestDist) { bestDist = d; nearest = stop; }
+        List<Integer> visitedPatients =
+                new ArrayList<>();
+
+        List<Integer> fullRoute =
+                new ArrayList<>();
+
+        double totalDistance = 0;
+
+        Set<Integer> remainingPatients =
+                new LinkedHashSet<>(patientNodes);
+
+        int currentLocation = hospitalNode;
+
+        fullRoute.add(hospitalNode);
+
+        while (!remainingPatients.isEmpty()) {
+
+            Result result =
+                    dijkstra(graph, currentLocation);
+
+            int nearestPatient = -1;
+
+            double bestDistance =
+                    Double.MAX_VALUE;
+
+            // Find nearest patient
+
+            for (int patient : remainingPatients) {
+
+                double distance =
+                        result.dist.getOrDefault(
+                                patient,
+                                Double.MAX_VALUE
+                        );
+
+                if (distance < bestDistance) {
+
+                    bestDistance = distance;
+
+                    nearestPatient = patient;
+                }
             }
 
-            if (nearest == -1) break; // unreachable stops remain
+            // No reachable patient
 
-            // Reconstruct leg: current → nearest
-            List<Integer> leg = reconstructPath(result.prev, current, nearest);
-            if (leg.size() > 1) {
-                fullPath.addAll(leg.subList(1, leg.size())); // skip duplicate current
+            if (nearestPatient == -1) {
+                break;
             }
-            totalDist += bestDist;
-            visitOrder.add(nearest);
-            remaining.remove(nearest);
-            current = nearest;
+
+            // Get shortest path
+
+            List<Integer> path =
+                    reconstructPath(
+                            result.prev,
+                            currentLocation,
+                            nearestPatient
+                    );
+
+            if (path.size() > 1) {
+
+                fullRoute.addAll(
+                        path.subList(1, path.size())
+                );
+            }
+
+            totalDistance += bestDistance;
+
+            visitedPatients.add(nearestPatient);
+
+            remainingPatients.remove(nearestPatient);
+
+            currentLocation = nearestPatient;
         }
 
-        // Return leg: last stop → source
-        Result returnResult = dijkstra(graph, current);
-        List<Integer> returnLeg = reconstructPath(returnResult.prev, current, source);
-        if (returnLeg.size() > 1) {
-            fullPath.addAll(returnLeg.subList(1, returnLeg.size()));
-        }
-        totalDist += returnResult.dist.getOrDefault(source, 0.0);
+        // Return ambulance to hospital
 
-        return new RouteResult(visitOrder, fullPath, totalDist, source);
+        Result returnResult =
+                dijkstra(graph, currentLocation);
+
+        List<Integer> returnPath =
+                reconstructPath(
+                        returnResult.prev,
+                        currentLocation,
+                        hospitalNode
+                );
+
+        if (returnPath.size() > 1) {
+
+            fullRoute.addAll(
+                    returnPath.subList(1, returnPath.size())
+            );
+        }
+
+        totalDistance +=
+                returnResult.dist.getOrDefault(
+                        hospitalNode,
+                        0.0
+                );
+
+        return new AmbulanceRouteResult(
+
+                hospitalNode,
+                visitedPatients,
+                fullRoute,
+                totalDistance
+        );
     }
 
-    // ── Route result ──────────────────────────────────────────────────────────
-    public static class RouteResult {
-        public final List<Integer> visitOrder; // sequence of stops visited
-        public final List<Integer> fullPath;   // every node in the route
-        public final double        totalDist;
-        public final int           startNode;
+    // ─────────────────────────────────────────────────────────────────────────
+    // ROUTE RESULT OBJECT
+    // ─────────────────────────────────────────────────────────────────────────
 
-        RouteResult(List<Integer> visitOrder, List<Integer> fullPath,
-                    double totalDist, int startNode) {
-            this.visitOrder = visitOrder;
-            this.fullPath   = fullPath;
-            this.totalDist  = totalDist;
-            this.startNode  = startNode;
+    public static class AmbulanceRouteResult {
+
+        public final int hospital;
+
+        public final List<Integer> patientsVisited;
+
+        public final List<Integer> completeRoute;
+
+        public final double totalDistance;
+
+        AmbulanceRouteResult(
+
+                int hospital,
+                List<Integer> patientsVisited,
+                List<Integer> completeRoute,
+                double totalDistance
+        ) {
+
+            this.hospital = hospital;
+
+            this.patientsVisited = patientsVisited;
+
+            this.completeRoute = completeRoute;
+
+            this.totalDistance = totalDistance;
         }
 
+        // Convert to JSON
+
         public String toJson() {
-            StringBuilder sb = new StringBuilder();
+
+            StringBuilder sb =
+                    new StringBuilder();
+
             sb.append("{");
-            sb.append("\"start\":").append(startNode).append(",");
 
-            sb.append("\"visitOrder\":[");
-            for (int i = 0; i < visitOrder.size(); i++) {
+            sb.append("\"hospital\":")
+                    .append(hospital)
+                    .append(",");
+
+            sb.append("\"patientsVisited\":[");
+
+            for (int i = 0;
+                 i < patientsVisited.size();
+                 i++) {
+
                 if (i > 0) sb.append(",");
-                sb.append(visitOrder.get(i));
+
+                sb.append(patientsVisited.get(i));
             }
+
             sb.append("],");
 
-            sb.append("\"fullPath\":[");
-            for (int i = 0; i < fullPath.size(); i++) {
+            sb.append("\"completeRoute\":[");
+
+            for (int i = 0;
+                 i < completeRoute.size();
+                 i++) {
+
                 if (i > 0) sb.append(",");
-                sb.append(fullPath.get(i));
+
+                sb.append(completeRoute.get(i));
             }
+
             sb.append("],");
 
-            sb.append(String.format("\"totalDist\":%.1f", totalDist));
+            sb.append(
+                    String.format(
+                            "\"totalDistance\":%.2f",
+                            totalDistance
+                    )
+            );
+
             sb.append("}");
+
             return sb.toString();
         }
     }

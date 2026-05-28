@@ -11,7 +11,6 @@ import config.DatabaseConfig;
 import emergency.EmergencyController;
 import hospital.HospitalController;
 import roadscoring.RoadScoringController;
-import routeopt.RouteOptimizationController;
 import traffic.TrafficController;
 import utils.ErrorHandler;
 import mdvrp.Dijkstra;
@@ -50,8 +49,8 @@ import java.util.concurrent.Executors;
  *     backend.MainServer
  */
 public class MainServer {
-    private static final Graph DELIVERY_MAP = MapFactory.buildDeliveryMap();
-    private static final Graph TRANSPORT_MAP = MapFactory.buildTransportMap();
+    // Ambulance city map — built once at startup
+    private static final Graph CITY_MAP = MapFactory.createCityMap();
 
     public static void main(String[] args) throws IOException {
         int port = Integer.parseInt(getProp("PORT", "5001"));
@@ -110,15 +109,13 @@ public class MainServer {
                 return;
             }
 
-            // ── /api/route-optimization/* ─────────────────────────────────────
-            if (path.startsWith("/api/route-optimization")) {
-                JwtPayload user = AuthMiddleware.verifyToken(ex);
-                if (user == null) return;
-                routeOptimization(ex, method, path, user);
+            // ── /api/ambulance/* (new route optimization) ────────────────────
+            if (path.startsWith("/api/ambulance")) {
+                routeAmbulance(ex, method, path);
                 return;
             }
 
-            // ── /api/delivery/* and /api/transport/* (Dijkstra graph APIs) ───
+            // ── /api/delivery/* and /api/transport/* (legacy — kept for compat)
             if (path.startsWith("/api/delivery")) {
                 routeDelivery(ex, method, path);
                 return;
@@ -245,89 +242,71 @@ public class MainServer {
         }
     }
 
-    // ── /api/route-optimization/* ─────────────────────────────────────────────
-    private static void routeOptimization(HttpExchange ex, String method, String path, JwtPayload user) throws IOException {
-        if ("POST".equals(method) && path.equals("/api/route-optimization/calculate")) {
-            RouteOptimizationController.calculateOptimalRoute(ex);
-        } else if ("POST".equals(method) && path.equals("/api/route-optimization/reroute")) {
-            RouteOptimizationController.dynamicReroute(ex);
-        } else if ("POST".equals(method) && path.equals("/api/route-optimization/simulate")) {
-            RouteOptimizationController.simulate(ex);
-        } else if ("GET".equals(method) && path.equals("/api/route-optimization/history")) {
-            if (AuthMiddleware.adminOrDispatch(ex, user)) RouteOptimizationController.getRouteHistory(ex);
-        } else {
-            ErrorHandler.notFound(ex);
-        }
-    }
-
-    // ── /api/delivery/* (Dijkstra.java + Graph.java style) ───────────────────
-    private static void routeDelivery(HttpExchange ex, String method, String path) throws IOException {
-        if ("GET".equals(method) && path.equals("/api/delivery/map")) {
-            String json = "{\"nodes\":" + DELIVERY_MAP.nodesToJson() +
-                    ",\"edges\":" + DELIVERY_MAP.edgesToJson() + "}";
-            ErrorHandler.writeResponse(ex, 200, json);
+    // ── /api/ambulance/* — new ambulance route optimization ──────────────────
+    //   GET  /api/ambulance/map    → full city graph (nodes + edges)
+    //   POST /api/ambulance/route  → optimized multi-patient ambulance route
+    private static void routeAmbulance(HttpExchange ex, String method, String path) throws IOException {
+        if ("GET".equals(method) && path.equals("/api/ambulance/map")) {
+            ErrorHandler.writeResponse(ex, 200, CITY_MAP.toJson());
             return;
         }
+        if ("POST".equals(method) && path.equals("/api/ambulance/route")) {
+            String body = readBody(ex);
+            try {
+                int hospitalNode = extractInt(body, "hospitalNode");
+                List<Integer> patientNodes = extractIntList(body, "patientNodes");
+                Dijkstra.AmbulanceRouteResult result =
+                    Dijkstra.optimizeAmbulanceRoute(CITY_MAP, hospitalNode, patientNodes);
+                ErrorHandler.writeResponse(ex, 200, result.toJson());
+            } catch (Exception e) {
+                ErrorHandler.sendError(ex, 400, "Bad request: " + e.getMessage());
+            }
+            return;
+        }
+        ErrorHandler.notFound(ex);
+    }
 
+    // ── /api/delivery/* (legacy compatibility) ────────────────────────────────
+    private static void routeDelivery(HttpExchange ex, String method, String path) throws IOException {
+        if ("GET".equals(method) && path.equals("/api/delivery/map")) {
+            ErrorHandler.writeResponse(ex, 200, CITY_MAP.toJson());
+            return;
+        }
         if ("POST".equals(method) && path.equals("/api/delivery/route")) {
             String body = readBody(ex);
             try {
                 int start = extractInt(body, "start");
                 List<Integer> stops = extractIntList(body, "stops");
-                if (!DELIVERY_MAP.hasNode(start)) {
-                    ErrorHandler.sendError(ex, 400, "Invalid start node: " + start);
-                    return;
-                }
-                for (int s : stops) {
-                    if (!DELIVERY_MAP.hasNode(s)) {
-                        ErrorHandler.sendError(ex, 400, "Invalid stop node: " + s);
-                        return;
-                    }
-                }
-                Dijkstra.RouteResult result = Dijkstra.greedyRoute(DELIVERY_MAP, start, stops);
+                Dijkstra.AmbulanceRouteResult result =
+                    Dijkstra.optimizeAmbulanceRoute(CITY_MAP, start, stops);
                 ErrorHandler.writeResponse(ex, 200, result.toJson());
-                return;
             } catch (Exception e) {
                 ErrorHandler.sendError(ex, 400, "Bad request: " + e.getMessage());
-                return;
             }
+            return;
         }
-
         ErrorHandler.notFound(ex);
     }
 
+    // ── /api/transport/* (legacy compatibility) ───────────────────────────────
     private static void routeTransport(HttpExchange ex, String method, String path) throws IOException {
         if ("GET".equals(method) && path.equals("/api/transport/map")) {
-            String json = "{\"nodes\":" + TRANSPORT_MAP.nodesToJson() +
-                    ",\"edges\":" + TRANSPORT_MAP.edgesToJson() + "}";
-            ErrorHandler.writeResponse(ex, 200, json);
+            ErrorHandler.writeResponse(ex, 200, CITY_MAP.toJson());
             return;
         }
-
         if ("POST".equals(method) && path.equals("/api/transport/route")) {
             String body = readBody(ex);
             try {
                 int start = extractInt(body, "start");
                 List<Integer> stops = extractIntList(body, "stops");
-                if (!TRANSPORT_MAP.hasNode(start)) {
-                    ErrorHandler.sendError(ex, 400, "Invalid start node: " + start);
-                    return;
-                }
-                for (int s : stops) {
-                    if (!TRANSPORT_MAP.hasNode(s)) {
-                        ErrorHandler.sendError(ex, 400, "Invalid stop node: " + s);
-                        return;
-                    }
-                }
-                Dijkstra.RouteResult result = Dijkstra.greedyRoute(TRANSPORT_MAP, start, stops);
+                Dijkstra.AmbulanceRouteResult result =
+                    Dijkstra.optimizeAmbulanceRoute(CITY_MAP, start, stops);
                 ErrorHandler.writeResponse(ex, 200, result.toJson());
-                return;
             } catch (Exception e) {
                 ErrorHandler.sendError(ex, 400, "Bad request: " + e.getMessage());
-                return;
             }
+            return;
         }
-
         ErrorHandler.notFound(ex);
     }
 

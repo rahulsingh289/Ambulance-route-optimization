@@ -1,8 +1,12 @@
 // MapFactory.java
-// Generates two maps:
-//   Section 1 — Delivery map: 100 nodes (houses, shops, schools, hospitals, gyms)
-//   Section 2 — Transport map: 20 nodes (depots + cities)
-// All edges use Euclidean distance as weight.
+// Generates Smart Ambulance Emergency Network Map
+// Includes:
+// Hospitals
+// Patients
+// Ambulance Stations
+// Emergency Zones
+// Traffic Areas
+// Bad Roads
 
 package mdvrp;
 
@@ -10,177 +14,518 @@ import java.util.*;
 
 public class MapFactory {
 
-    // ═════════════════════════════════════════════════════════════════════════
-    //  SECTION 1 — Delivery Boy Map  (100 nodes on ~800×600 canvas)
-    // ═════════════════════════════════════════════════════════════════════════
-    public static Graph buildDeliveryMap() {
-        Graph g = new Graph();
+    // ───────────────────────────────────────────────────────────────────────
+    // CREATE COMPLETE CITY MAP
+    // ───────────────────────────────────────────────────────────────────────
 
-        // Node layout: arranged in a realistic neighbourhood grid with variation
-        // Types: HOUSE(1-60), SHOP(61-75), SCHOOL(76-82), HOSPITAL(83-87), GYM(88-100)
+    public static Graph createCityMap() {
 
-        // ── Houses (60 nodes) ─────────────────────────────────────────────────
-        int[][] houseCoords = {
-            {80,80},{150,75},{230,85},{310,80},{390,75},{470,80},{550,85},{630,80},{710,75},{780,80},
-            {80,150},{160,145},{240,155},{320,150},{400,145},{480,150},{560,155},{640,150},{720,145},{790,150},
-            {85,225},{165,220},{245,230},{325,225},{405,220},{485,225},{565,230},{645,225},{725,220},{795,225},
-            {80,300},{160,295},{240,305},{320,300},{400,295},{480,300},{560,305},{640,300},{720,295},{790,300},
-            {85,375},{165,370},{245,380},{325,375},{405,370},{485,375},{565,380},{645,375},{725,370},{795,375},
-            {80,450},{160,445},{240,455},{320,450},{400,445},{480,450},{560,455},{640,450},{720,445},{790,450}
-        };
-        String[] houseNames = {
-            "Oakwood Villa","Maple Cottage","Pine Residence","Cedar House","Elm Bungalow",
-            "Birch Home","Willow Place","Ash Dwelling","Poplar Abode","Sycamore Lodge",
-            "Sunrise Apt","Moonrise Flat","Dawn Quarters","Dusk Rooms","Zenith Home",
-            "Horizon House","Crest Cottage","Summit Lodge","Valley View","Ridge Retreat",
-            "Brook Side","River View","Lake Shore","Pond Edge","Creek Cottage",
-            "Stream Side","Spring Villa","Well House","Fountain Home","Rain Drop Inn",
-            "Garden Villa","Rose Cottage","Lily House","Daisy Home","Tulip Place",
-            "Jasmine Lodge","Orchid Flat","Iris Abode","Violet Rooms","Peony Suite",
-            "Hill Top","Cliff View","Meadow Home","Field House","Plain Cottage",
-            "Slope Villa","Crest Flat","Peak Lodge","Summit Inn","Terrace Home",
-            "North End","South Bay","East Wing","West Side","Central Apt",
-            "Corner House","Junction Home","Cross Roads","Main Street","Back Lane"
-        };
-        for (int i = 0; i < 60; i++) {
-            g.addNode(new Graph.Node(i + 1, houseNames[i], Graph.NodeType.HOUSE,
-                houseCoords[i][0], houseCoords[i][1]));
-        }
+        Graph graph = new Graph();
 
-        // ── Shops (15 nodes, IDs 61-75) ───────────────────────────────────────
-        double[][] shopCoords = {
-            {200,130},{380,120},{560,130},{730,120},{120,270},
-            {300,260},{500,270},{680,260},{200,350},{420,340},
-            {620,350},{130,420},{340,420},{540,415},{730,425}
-        };
-        String[] shopNames = {
-            "FreshMart","QuickShop","City Store","Super Bazaar","Corner Kiosk",
-            "Daily Needs","Express Mart","Green Grocer","BakeryPlus","TechZone",
-            "Fashion Hub","Book World","Toy Land","Sports Den","Pharma Plus"
-        };
-        for (int i = 0; i < 15; i++) {
-            g.addNode(new Graph.Node(61 + i, shopNames[i], Graph.NodeType.SHOP,
-                shopCoords[i][0], shopCoords[i][1]));
-        }
+        // ───────────────────────────────────────────────────────────────────
+        // HOSPITAL NODES
+        // IDs 1 - 5
+        // ───────────────────────────────────────────────────────────────────
 
-        // ── Schools (7 nodes, IDs 76-82) ─────────────────────────────────────
-        double[][] schoolCoords = {
-            {200,200},{450,195},{680,205},{180,390},{460,385},{700,395},{340,310}
-        };
-        String[] schoolNames = {
-            "St. Mary's School","Greenfield Academy","Sunrise High",
-            "City Public School","Newton Institute","River Valley School","Central Academy"
-        };
-        for (int i = 0; i < 7; i++) {
-            g.addNode(new Graph.Node(76 + i, schoolNames[i], Graph.NodeType.SCHOOL,
-                schoolCoords[i][0], schoolCoords[i][1]));
-        }
+        graph.addNode(
 
-        // ── Hospitals (5 nodes, IDs 83-87) ───────────────────────────────────
-        double[][] hospCoords = {
-            {130,110},{590,105},{760,310},{350,470},{530,330}
-        };
-        String[] hospNames = {
-            "City Hospital","Metro Medical","North Health Centre",
-            "South Clinic","Central Care"
-        };
-        for (int i = 0; i < 5; i++) {
-            g.addNode(new Graph.Node(83 + i, hospNames[i], Graph.NodeType.HOSPITAL,
-                hospCoords[i][0], hospCoords[i][1]));
-        }
+                new Graph.Node(
+                        1,
+                        "City Hospital",
+                        Graph.NodeType.HOSPITAL,
+                        120,
+                        100
+                )
+        );
 
-        // ── Gyms (13 nodes, IDs 88-100) ──────────────────────────────────────
-        double[][] gymCoords = {
-            {270,110},{490,115},{350,200},{600,210},{250,290},
-            {470,295},{700,285},{130,365},{380,365},{610,370},
-            {270,455},{500,460},{720,455}
-        };
-        String[] gymNames = {
-            "PowerFit Gym","IronZone","FlexStudio","CardioHub","StrengthBase",
-            "ActiveFit","PulseFit","BodyCraft","EliteFit","SpeedFit",
-            "ZenFit","CoreFit","MaxFit"
-        };
-        for (int i = 0; i < 13; i++) {
-            g.addNode(new Graph.Node(88 + i, gymNames[i], Graph.NodeType.GYM,
-                gymCoords[i][0], gymCoords[i][1]));
-        }
+        graph.addNode(
 
-        // ── Build edges: connect each node to its ~4 nearest neighbours ───────
-        connectNearestNeighbours(g, 4);
+                new Graph.Node(
+                        2,
+                        "Metro Hospital",
+                        Graph.NodeType.HOSPITAL,
+                        700,
+                        90
+                )
+        );
 
-        return g;
+        graph.addNode(
+
+                new Graph.Node(
+                        3,
+                        "Emergency Care Center",
+                        Graph.NodeType.HOSPITAL,
+                        380,
+                        260
+                )
+        );
+
+        graph.addNode(
+
+                new Graph.Node(
+                        4,
+                        "North Medical",
+                        Graph.NodeType.HOSPITAL,
+                        180,
+                        470
+                )
+        );
+
+        graph.addNode(
+
+                new Graph.Node(
+                        5,
+                        "South Trauma Center",
+                        Graph.NodeType.HOSPITAL,
+                        670,
+                        460
+                )
+        );
+
+        // ───────────────────────────────────────────────────────────────────
+        // PATIENT LOCATIONS
+        // IDs 6 - 15
+        // ───────────────────────────────────────────────────────────────────
+
+        graph.addNode(
+
+                new Graph.Node(
+                        6,
+                        "Patient Zone A",
+                        Graph.NodeType.PATIENT,
+                        220,
+                        150
+                )
+        );
+
+        graph.addNode(
+
+                new Graph.Node(
+                        7,
+                        "Patient Zone B",
+                        Graph.NodeType.PATIENT,
+                        320,
+                        120
+                )
+        );
+
+        graph.addNode(
+
+                new Graph.Node(
+                        8,
+                        "Patient Zone C",
+                        Graph.NodeType.PATIENT,
+                        520,
+                        170
+                )
+        );
+
+        graph.addNode(
+
+                new Graph.Node(
+                        9,
+                        "Patient Zone D",
+                        Graph.NodeType.PATIENT,
+                        760,
+                        210
+                )
+        );
+
+        graph.addNode(
+
+                new Graph.Node(
+                        10,
+                        "Patient Zone E",
+                        Graph.NodeType.PATIENT,
+                        610,
+                        310
+                )
+        );
+
+        graph.addNode(
+
+                new Graph.Node(
+                        11,
+                        "Patient Zone F",
+                        Graph.NodeType.PATIENT,
+                        450,
+                        360
+                )
+        );
+
+        graph.addNode(
+
+                new Graph.Node(
+                        12,
+                        "Patient Zone G",
+                        Graph.NodeType.PATIENT,
+                        250,
+                        350
+                )
+        );
+
+        graph.addNode(
+
+                new Graph.Node(
+                        13,
+                        "Patient Zone H",
+                        Graph.NodeType.PATIENT,
+                        100,
+                        320
+                )
+        );
+
+        graph.addNode(
+
+                new Graph.Node(
+                        14,
+                        "Patient Zone I",
+                        Graph.NodeType.PATIENT,
+                        320,
+                        520
+                )
+        );
+
+        graph.addNode(
+
+                new Graph.Node(
+                        15,
+                        "Patient Zone J",
+                        Graph.NodeType.PATIENT,
+                        560,
+                        520
+                )
+        );
+
+        // ───────────────────────────────────────────────────────────────────
+        // AMBULANCE STATIONS
+        // IDs 16 - 20
+        // ───────────────────────────────────────────────────────────────────
+
+        graph.addNode(
+
+                new Graph.Node(
+                        16,
+                        "Ambulance Station 1",
+                        Graph.NodeType.AMBULANCE_STATION,
+                        150,
+                        220
+                )
+        );
+
+        graph.addNode(
+
+                new Graph.Node(
+                        17,
+                        "Ambulance Station 2",
+                        Graph.NodeType.AMBULANCE_STATION,
+                        420,
+                        80
+                )
+        );
+
+        graph.addNode(
+
+                new Graph.Node(
+                        18,
+                        "Ambulance Station 3",
+                        Graph.NodeType.AMBULANCE_STATION,
+                        760,
+                        360
+                )
+        );
+
+        graph.addNode(
+
+                new Graph.Node(
+                        19,
+                        "Ambulance Station 4",
+                        Graph.NodeType.AMBULANCE_STATION,
+                        340,
+                        430
+                )
+        );
+
+        graph.addNode(
+
+                new Graph.Node(
+                        20,
+                        "Central Ambulance Hub",
+                        Graph.NodeType.AMBULANCE_STATION,
+                        540,
+                        260
+                )
+        );
+
+        // ───────────────────────────────────────────────────────────────────
+        // CONNECT NODES
+        // ───────────────────────────────────────────────────────────────────
+
+        connectNearestNeighbours(
+                graph,
+                4
+        );
+
+        // ───────────────────────────────────────────────────────────────────
+        // ADD SPECIAL ROADS
+        // distance
+        // traffic level
+        // bad road
+        // emergency route
+        // ───────────────────────────────────────────────────────────────────
+
+        addRoad(
+                graph,
+                1,
+                6,
+                120,
+                3,
+                false,
+                true
+        );
+
+        addRoad(
+                graph,
+                1,
+                16,
+                80,
+                2,
+                false,
+                true
+        );
+
+        addRoad(
+                graph,
+                16,
+                13,
+                110,
+                9,
+                true,
+                false
+        );
+
+        addRoad(
+                graph,
+                2,
+                9,
+                140,
+                5,
+                false,
+                true
+        );
+
+        addRoad(
+                graph,
+                3,
+                10,
+                95,
+                4,
+                false,
+                true
+        );
+
+        addRoad(
+                graph,
+                4,
+                14,
+                130,
+                8,
+                true,
+                false
+        );
+
+        addRoad(
+                graph,
+                5,
+                15,
+                100,
+                2,
+                false,
+                true
+        );
+
+        addRoad(
+                graph,
+                20,
+                10,
+                60,
+                1,
+                false,
+                true
+        );
+
+        addRoad(
+                graph,
+                20,
+                11,
+                80,
+                7,
+                false,
+                true
+        );
+
+        addRoad(
+                graph,
+                7,
+                17,
+                75,
+                2,
+                false,
+                true
+        );
+
+        addRoad(
+                graph,
+                18,
+                9,
+                90,
+                10,
+                true,
+                false
+        );
+
+        // ───────────────────────────────────────────────────────────────────
+        // DETECT BAD ROADS
+        // ───────────────────────────────────────────────────────────────────
+
+        graph.detectBadRoads();
+
+        return graph;
     }
 
-    // ═════════════════════════════════════════════════════════════════════════
-    //  SECTION 2 — Transport / Depot Map  (20 nodes on ~800×550 canvas)
-    // ═════════════════════════════════════════════════════════════════════════
-    public static Graph buildTransportMap() {
-        Graph g = new Graph();
+    // ───────────────────────────────────────────────────────────────────────
+    // CONNECT NEAREST NEIGHBOURS
+    // ───────────────────────────────────────────────────────────────────────
 
-        // ── Depots (5 nodes, IDs 1-5) ─────────────────────────────────────────
-        double[][] depotCoords = {
-            {120,100},{700,90},{100,430},{720,440},{410,270}
-        };
-        String[] depotNames = {
-            "Depot North-West","Depot North-East","Depot South-West",
-            "Depot South-East","Central Hub Depot"
-        };
-        for (int i = 0; i < 5; i++) {
-            g.addNode(new Graph.Node(i + 1, depotNames[i], Graph.NodeType.DEPOT,
-                depotCoords[i][0], depotCoords[i][1]));
-        }
+    private static void connectNearestNeighbours(
 
-        // ── Cities / delivery centres (15 nodes, IDs 6-20) ───────────────────
-        double[][] cityCoords = {
-            {250,90},{420,80},{570,100},{680,220},{760,330},
-            {680,430},{530,490},{370,510},{220,480},{110,350},
-            {130,210},{300,200},{500,190},{600,310},{350,380}
-        };
-        String[] cityNames = {
-            "Northfield City","Lakeville","Eastport","Highbridge","Coastal Town",
-            "Southgate","Riverdale","Westwood","Harborview","Mountainside",
-            "Clearwater","Midtown","Uptown Junction","Crossroads City","Valley Centre"
-        };
-        for (int i = 0; i < 15; i++) {
-            g.addNode(new Graph.Node(6 + i, cityNames[i], Graph.NodeType.CITY,
-                cityCoords[i][0], cityCoords[i][1]));
-        }
+            Graph graph,
 
-        // ── Connect: each node to 3 nearest ───────────────────────────────────
-        connectNearestNeighbours(g, 3);
+            int neighbours
 
-        // ── Extra highway connections between depots ───────────────────────────
-        addEdgeIfAbsent(g, 1, 2, 310.0);
-        addEdgeIfAbsent(g, 1, 3, 280.0);
-        addEdgeIfAbsent(g, 2, 4, 270.0);
-        addEdgeIfAbsent(g, 3, 4, 290.0);
-        addEdgeIfAbsent(g, 5, 1, 200.0);
-        addEdgeIfAbsent(g, 5, 2, 205.0);
-        addEdgeIfAbsent(g, 5, 3, 215.0);
-        addEdgeIfAbsent(g, 5, 4, 210.0);
+    ) {
 
-        return g;
-    }
+        List<Graph.Node> nodes =
 
-    // ── Connect each node to its K nearest neighbours ─────────────────────────
-    private static void connectNearestNeighbours(Graph g, int k) {
-        List<Graph.Node> nodes = new ArrayList<>(g.getNodes().values());
-        for (Graph.Node u : nodes) {
-            // Sort other nodes by distance
+                new ArrayList<>(
+                        graph.getNodes().values()
+                );
+
+        for (Graph.Node node : nodes) {
+
             nodes.stream()
-                 .filter(v -> v.id != u.id)
-                 .sorted(Comparator.comparingDouble(v -> Graph.euclidean(u, v)))
-                 .limit(k)
-                 .forEach(v -> addEdgeIfAbsent(g, u.id, v.id,
-                     Graph.euclidean(u, v)));
+
+                    .filter(
+                            other ->
+                                    other.id != node.id
+                    )
+
+                    .sorted(
+
+                            Comparator.comparingDouble(
+
+                                    other ->
+                                            Graph.euclidean(
+                                                    node,
+                                                    other
+                                            )
+                            )
+                    )
+
+                    .limit(neighbours)
+
+                    .forEach(
+
+                            other -> {
+
+                                double distance =
+
+                                        Graph.euclidean(
+                                                node,
+                                                other
+                                        );
+
+                                addRoad(
+
+                                        graph,
+
+                                        node.id,
+
+                                        other.id,
+
+                                        distance,
+
+                                        randomTraffic(),
+
+                                        false,
+
+                                        true
+                                );
+                            }
+                    );
         }
     }
 
-    // ── Add edge only if neither direction already exists ─────────────────────
-    private static void addEdgeIfAbsent(Graph g, int u, int v, double w) {
-        List<Graph.Edge> list = g.getAdj().get(u);
-        if (list == null) return;
-        boolean exists = list.stream().anyMatch(e -> e.to == v);
-        if (!exists) g.addEdge(u, v, w);
+    // ───────────────────────────────────────────────────────────────────────
+    // ADD ROAD
+    // ───────────────────────────────────────────────────────────────────────
+
+    private static void addRoad(
+
+            Graph graph,
+
+            int from,
+
+            int to,
+
+            double distance,
+
+            int traffic,
+
+            boolean badRoad,
+
+            boolean emergencyRoute
+    ) {
+
+        // Prevent duplicate edges
+
+        List<Graph.Edge> list =
+                graph.getAdj().get(from);
+
+        boolean exists =
+
+                list.stream()
+
+                        .anyMatch(
+                                edge ->
+                                        edge.to == to
+                        );
+
+        if (!exists) {
+
+            graph.addEdge(
+
+                    from,
+
+                    to,
+
+                    distance,
+
+                    traffic,
+
+                    badRoad,
+
+                    emergencyRoute
+            );
+        }
+    }
+
+    // ───────────────────────────────────────────────────────────────────────
+    // RANDOM TRAFFIC GENERATOR
+    // ───────────────────────────────────────────────────────────────────────
+
+    private static int randomTraffic() {
+
+        return new Random().nextInt(10) + 1;
     }
 }
